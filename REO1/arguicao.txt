@@ -1,0 +1,73 @@
+1) O que é um TAD (tipo abstrato de dados)? Qual a importância de seu uso? Quais suas vantagens e desvantagens?
+    R:
+    1.1) representação abstrata de dados, com foco nas operaçẽs a serem realizadas, sem se preocupar com implementação;
+    ---> representar um elemento(objeto) do mundo real;
+
+    1.2) facilita no entendimento e organização das ideias, antes de implementar;
+    1.3) em problemas simples, essa abordagem pode possuir dificuldade desnecessária para a solução do problema;
+
+2) Qual é a relação do entre estruturas e classes? Quando é mais adequado utilizar classes  ou registros?
+    R:
+    2.1) ambos são TADs;
+    2.2) problemas simples: struct;
+         problemas complexos: class;
+
+3) O que é programação orientada a objetos? Quais são os 4 conceitos/pilares fundamentais da programação orientada a objetos?
+    R:
+    3.1) paradigma em que a implementação se baseia nas caracteristicas de objetos do mundo real;
+    3.2) abstração, herança, polimorfismo, encapsulamento;
+
+4) O que é abstração? Qual a importância desse pilar na orientação a objetos e como ela pode ser trabalhada? 
+    R:
+    4.1) capacidade de abstrair entidades/objetos do mundo real e representá-los por uma notação de classe;
+    4.2) abstração é o ponto de partida para a criação de sistemas orientados à objetos. Dessa forma, usar a abstração
+        adequada para os objetos é essencial para o decorrer do desenvolvimento;
+    4.3) ...;
+
+5) O que é um objeto? O que é uma classe? Como diferenciar um objeto de uma classe?
+    R: 
+    5.1) 
+        - classe: TAD que reúne caracteriscas de um objeto;
+        - objeto: instância de uma classe;
+    5.2) classe é apenas uma representação, objeto é uma estrutura que segue o comportamento da classe;
+
+6) O que é comportamento de um objeto? O que são características de um objeto?
+    R:
+    6.1) (ações que ele pode realizar) Comportamento de um objeto é como ele se comporta segundo as regras da classe que ele obedece. 
+    Cada objeto pode ter um comportamento único;
+    6.2) características de um objeto são os atributos que os objetos possuem (caneta: cor, material, calibre grafite, possui borracha)
+
+7) O que é encapsulamento?  Qual a importância do encapsulamento? Quais as vantagens e desvantagens do encapsulamento?
+    R:
+    7.1) encapsulamento é um pilar da POO que define a visibilidade dos atributos e métodos das classes;
+    7.2) importante para ocultação de dados (segurança), possibilita melhor aproveitamento dos componentes do sistema;
+    7.3)
+        7.3.1) vantagens:
+                    - segurança *
+                    - independência *
+                    - elevado grau de abstração
+                    - minimização da indepêndencia entre componentes (acoplamento) **
+                    - leitura/entendimento do código
+                    - reuso *
+                    - manutenção *
+        7.3.2) desvantagens:
+                    - se usado de forma incorreta, atrapalha a continuação do desenvolvimento do sistema
+
+8) Quais são as diferenças das sessões públicas e privadas? E o que seria uma sessão protegida (protected)? 
+    R: 
+    - public: todos tem acesso;
+    - private: acesso somente dentro da classe;
+    - protected: classes filhas tem acesso (herança)
+
+9) O que são métodos get e set? Porque não podemos usar esses métodos indiscriminadamente? Qual é o procedimento adequado nesses casos (acesso aos dados)?
+    R:
+    9.1) são métodos mágicos, conseguem recuperar(get) e atribuir(set) valores a atributos privados da classe;
+    9.2) não devemos usar getters e setters indiscriminadamente para: 
+        - facilitar a leitura/entendimento do código
+        - apenas atributos necessários sejam contemplados
+    9.3) é adequado que os gettes e setters sejam utilizados apenas para os atributos que são importantes para a lógica do problema;
+
+10) O que é uma classe amiga? Quais são os perigos na utilização das classe amigas?
+    R:
+    10.1) classe externa que podem acessar e alterar atributos de outra classe;
+    10.2) sobrepõe o encapsulamento
