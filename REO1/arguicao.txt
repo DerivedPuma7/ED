@@ -1,5 +1,4 @@
 1) O que é um TAD (tipo abstrato de dados)? Qual a importância de seu uso? Quais suas vantagens e desvantagens?
-    R:
     1.1) representação abstrata de dados, com foco nas operaçẽs a serem realizadas, sem se preocupar com implementação;
     ---> representar um elemento(objeto) do mundo real;
 
@@ -7,38 +6,32 @@
     1.3) em problemas simples, essa abordagem pode possuir dificuldade desnecessária para a solução do problema;
 
 2) Qual é a relação do entre estruturas e classes? Quando é mais adequado utilizar classes  ou registros?
-    R:
-    2.1) ambos são TADs;
+    2.1) ambos são TADs --> uma struct é uma classe em que todos os attr e métodos são públicos por padrão;
     2.2) problemas simples: struct;
          problemas complexos: class;
 
 3) O que é programação orientada a objetos? Quais são os 4 conceitos/pilares fundamentais da programação orientada a objetos?
-    R:
     3.1) paradigma em que a implementação se baseia nas caracteristicas de objetos do mundo real;
     3.2) abstração, herança, polimorfismo, encapsulamento;
 
-4) O que é abstração? Qual a importância desse pilar na orientação a objetos e como ela pode ser trabalhada? 
-    R:
+4) O que é abstração? Qual a importância desse pilar na orientação a objetos e como ela pode ser trabalhada?
     4.1) capacidade de abstrair entidades/objetos do mundo real e representá-los por uma notação de classe;
     4.2) abstração é o ponto de partida para a criação de sistemas orientados à objetos. Dessa forma, usar a abstração
         adequada para os objetos é essencial para o decorrer do desenvolvimento;
     4.3) ...;
 
 5) O que é um objeto? O que é uma classe? Como diferenciar um objeto de uma classe?
-    R: 
     5.1) 
         - classe: TAD que reúne caracteriscas de um objeto;
         - objeto: instância de uma classe;
     5.2) classe é apenas uma representação, objeto é uma estrutura que segue o comportamento da classe;
 
 6) O que é comportamento de um objeto? O que são características de um objeto?
-    R:
     6.1) (ações que ele pode realizar) Comportamento de um objeto é como ele se comporta segundo as regras da classe que ele obedece. 
     Cada objeto pode ter um comportamento único;
     6.2) características de um objeto são os atributos que os objetos possuem (caneta: cor, material, calibre grafite, possui borracha)
 
 7) O que é encapsulamento?  Qual a importância do encapsulamento? Quais as vantagens e desvantagens do encapsulamento?
-    R:
     7.1) encapsulamento é um pilar da POO que define a visibilidade dos atributos e métodos das classes;
     7.2) importante para ocultação de dados (segurança), possibilita melhor aproveitamento dos componentes do sistema;
     7.3)
@@ -53,14 +46,12 @@
         7.3.2) desvantagens:
                     - se usado de forma incorreta, atrapalha a continuação do desenvolvimento do sistema
 
-8) Quais são as diferenças das sessões públicas e privadas? E o que seria uma sessão protegida (protected)? 
-    R: 
+8) Quais são as diferenças das sessões públicas e privadas? E o que seria uma sessão protegida (protected)?
     - public: todos tem acesso;
     - private: acesso somente dentro da classe;
     - protected: classes filhas tem acesso (herança)
 
 9) O que são métodos get e set? Porque não podemos usar esses métodos indiscriminadamente? Qual é o procedimento adequado nesses casos (acesso aos dados)?
-    R:
     9.1) são métodos mágicos, conseguem recuperar(get) e atribuir(set) valores a atributos privados da classe;
     9.2) não devemos usar getters e setters indiscriminadamente para: 
         - facilitar a leitura/entendimento do código
@@ -68,6 +59,120 @@
     9.3) é adequado que os gettes e setters sejam utilizados apenas para os atributos que são importantes para a lógica do problema;
 
 10) O que é uma classe amiga? Quais são os perigos na utilização das classe amigas?
-    R:
     10.1) classe externa que podem acessar e alterar atributos de outra classe;
     10.2) sobrepõe o encapsulamento
+
+11)  No contexto de classes, o que é uma implementação inline? Apresente um exemplo. Quais as vantagens e desvantagens da implementação inline?
+    11.1) implementação inline é quando a implementação da lógica dos métodos é feita dentro do escopo da classe;
+    11.2)
+        - vantagem: pequeno ganho de performance
+        - desvantagem: é uma sugestão pro compilador, pode ou não ser acatado
+    
+    exemplo:
+    class Calculadora {
+        private:
+            int primeiroNumero;
+            int segundoNumero;
+        public:
+            int multiplicar(int primeiroNumero, int segundoNumero) {
+                return primeiroNumero * segundoNumero;
+            }
+    };
+
+12) No contexto de classes, o que é uma implementação externa? Apresente um exemplo. Quais as vantagens e desvantagens da implementação externa?
+    12.1) implementação dos métodos fora do escopo da classe, utilizando o operador de escopo (::)
+    12.2)
+        - vantagem: pode ser organizado melhor a implementação dos métodos em arquivos separados
+        - desvantagem:
+    
+    exemplo: 
+    class Calculadora {
+        private:
+            int primeiroNumero;
+            int segundoNumero;
+        public:
+            int multiplicar(int primeiroNumero, int segundoNumero);
+        
+        int calculadora::multiplicar(int primeiroNumero, int segundoNumero) {
+            return primeiroNumero * segundoNumero;      
+        }
+    };
+
+13) O que é um construtor? Qual sua importância?
+    13.1) é um método executado automaticamente assim que uma classe é instanciada;
+    13.2) é importante pois: 
+        - não precisa ser chamado, ele é executado automático;
+        - pode ser usado para setar valores para atributos de acordo com o objeto que queremos criar;
+    
+    exemplo: 
+    class Foo {
+        public:
+            Foo() {} // constructor
+            ~Foo() {} // destructor
+    };
+
+* 14) O que é o construtor padrão?  Quais os procedimentos realizados por ele? Quando é necessário modificá-lo?
+
+15) O que é um destrutor? Qual sua importância? 
+    15.1) é um método executado automaticamente assim que a instância de uma classe é destruída;
+    15.2) é importante para:
+        - não precisa ser chamado, ele é executado automático;
+        - desalocar endereços de memória que não serão mais utilizados;
+
+16) O que é um garbage collector? Quais as vantagens e desvantagens de seu uso?
+    16.1) é um recurso que algumas linguagens possuem que realiza a desalocação de memória automaticamente, sem necessidade de destrutores
+    16.2)
+        - vantagem:
+            - libera o desenvolvedor da preocupação de limpar endereços de memória ao longo do desenvolvimento do programa;
+        -desvantagem:
+            - exige mais recurso computacional
+            - menor desempenho
+
+17) Quando do uso de construtores, qual é a diferença da inicialização direta ou em lista? Dê exemplos. 
+    - inicialização direta:
+        - realizada dentro do escopo do construtor
+        - mais comum entre os desenvolvedores
+    - inicialização em lista:
+        - realizada após a declaração da função com o operador de escopo(::)
+    
+    exemplo:
+
+    // inicialização direta
+    class myClass {
+        private:
+            int attr1;
+            int attr2;
+        public:
+            myClass(int a, int b) {
+                attr1 = a;
+                attr2 = b;
+            }
+    }
+
+    // inicialização em lista
+    class myClass {
+        private:
+            int attr1;
+            int attr2;
+        
+        myClass::myClass(int a, int b) {
+            attr1 = a;
+            attr2 = b;
+        }
+    }
+
+    pontos importantes:
+        - atributos constantes ou referências so podem ser inicializados em lista;
+        - vetores ou estruturas sem construtores so podem ser inicializados diretamente;
+
+* 18)  Quais as vantagens e desvantagens da inicialização direta ou em lista? 
+
+19) O que é sobrecarga de uma função? Quais as vantagens e desvantagens de sobrecarregar uma função?
+    19.1) sobrecarga de uma função é a possibilidade de uma função retornar diferentes resultados baseado nos parâmetros que foram passados;
+    19.2)
+        vantagens:
+            - conseguimos ter diferentes comportamentos para um mesmo contexto;
+        desvantagens:
+            - é preciso ter cuidado com a sobrecarga para evitar que o código fique confuso e de difícil manutenção;
+
+20) Como funciona a sobrecarga de funções, como pode ser implementada? Quais as restrições (quando não pode ser implementada, por exemplo)?
