@@ -176,3 +176,12 @@
             - é preciso ter cuidado com a sobrecarga para evitar que o código fique confuso e de difícil manutenção;
 
 20) Como funciona a sobrecarga de funções, como pode ser implementada? Quais as restrições (quando não pode ser implementada, por exemplo)?
+    20.1) uma mesma função pode ter diferentes implementações e tipos de retorno baseado em quais parâmetros são passados para ela;
+    20.2) 
+        - int foo(int x, float y);
+        - float foo(float x, float z);
+        - float foo(int a, char j);
+    20.3)
+        errado:
+            - int foo(int x, float y);
+            - float foo(int x, float y);
