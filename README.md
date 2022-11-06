@@ -1,4 +1,4 @@
-# ED
+# Estruturas de Dados
 ## disciplina cursada em 2022/2 pela UFLA 
 
 Caso encontre esse repositório, espero que seja útil de alguma forma
