@@ -171,3 +171,104 @@
     21.2)
         vantagem: facilidade de escrita (PLP);
         desvantagem: possibilidade alta de fazer merda. torna codigo mais ilegivel;
+
+22) Qual é a importância do retorno de operadores em sobrecarga de operadores?
+    22.1) é importante para permitir continuidade na execução do programa;
+
+23) Cite um problema semântico gerado por sobrecarga de operadores? Como podemos resolver isso.
+    23.1) 
+        - pode causar ilegibilidade do código ---> outro programador pode ter problemas para interpretar a sobrecarga e dar manutenção;
+        - pode causar comportamento inesperado ---> dado a sobrecarga de um operador, outro programador pode ter problemas para dar manutenção;
+    23.2) podemos resolver criando documentação do código e informando com clareza as sobrecargas realizadas;
+
+25) O que é um operador this em C++? Quando é interessante ou indicado o seu uso?
+    25.1) o operador this é um ponteiro que faz referência ao objeto atual;
+    25.1) 
+        - é interessante para tornar o código mais legivel, tornando evidente qual objeto estamos acessando;
+        - em algumas atribuições é necessário seu uso, quando o atributo que queremos atribuir tem o mesmo nome do parâmetro recebido
+            void atribuir(int a){
+                a = a; //errado
+                this.a = a; //correto
+            }
+
+26) O que acontece quando é declarado um ponteiro P1, que foi inicializado, apontando para uma região apontada por P2, e imediatamente removemos (desalocamos) P2?
+    26.1) aconteceria um problema de referência para o ponteiro P1;
+        quando P1 e P2 apontam para o mesmo endereço de memória, caso P2 seja destruído (memória desalocada), perderíamos tudo referente a P1;
+
+** 27) Como resolver esse problema citado na pergunta anterior? Como evitar isso? 
+
+** 28) Quais os procedimentos realizados pelo operador de atribuição? Ele pode apresentar o problema associado a atributos dinâmicos? Explique. Se sim, como poderia ser resolvido? Se não, qual o motivo? 
+
+29) O que é um construtor de cópia? Quais os procedimentos realizados por ele? Quando  é necessário modificá-lo? 
+    29.1) construtor de cópia é um construtor que recebe um objeto como parâmetro e realiza a cópia desse objeto;
+    29.2) recebe parâmetro, aloca memória, e faz a cópia;
+    ** 29.3)
+
+    ex:
+        vectorx::vectorx(const vectorx& vec) {
+            tam = vec.tam;
+            vetor = new int[tam];
+            for(int i = 0; i < tam; i++) {
+                vetor[i] = vec.vetor[i];
+            }
+        }
+
+30) Quando projetamos uma classe, quais devem ser os atributos e métodos? Existe alguma indicação?
+    30.1) 
+    30.2) a indicação é que se use o mínimo necessário de atributos e métodos. só é necessário ter 
+        atributos que facilitam o uso e desenvolvimento;
+
+31) Quando projetamos uma classe, quais as possíveis situações em que devemos dar preferência para uma variável em detrimento de retorno de função, e vice-versa.
+    31.1) quando esse retorno de função for útil em outras partes do código, podemos optar por tornar esse retorno em um atributo,
+        de forma que fique mais fácil e rápido o processamento;
+        ex:
+        class pessoa {
+            private: 
+                data_nascimento;
+            
+            public calcularIdade(){
+                //implementação da funçao
+                return idade;
+            }
+            foo1() {
+                calcularIdade();
+            }
+            foo2() {
+                calcularIdade();
+            }
+            foo3() {
+                calcularIdade();
+            }
+        }
+
+        class pessoa {
+            private: 
+                data_nascimento;
+                idade;
+            
+            pessoa() {
+                this.idade = calcularIdade();
+            }
+            
+            public calcularIdade(){
+                //implementação da funçao
+                return idade;
+            }
+            foo1() {
+                this.idade; //nao é necessário fazer toda a conta da idade novamente;
+            }
+            foo2() {
+                this.idade; //nao é necessário fazer toda a conta da idade novamente;
+            }
+            foo3() {
+                this.idade; //nao é necessário fazer toda a conta da idade novamente;
+            }
+        }
+
+32) O que é o princípio do menor privilégio?
+    32.1) esse princípio fala que atributos e métodos que não precisam ser acessados externamente, devem ser mantidos privados ou protegidos;
+
+33) Qual é a importância da nomenclatura dos comportamentos e características de uma classe?
+    33.1) a nomenclatura adequada aos atributos e métodos é importante para a legibilidade do programa;
+        Em caso de métodos, o nome da função sugere ao leitor o que será abordado dentro daquele bloco de código;
+        Em caso de atributos, o nome sugere como aquela variável será utilizada dentro do programa;
