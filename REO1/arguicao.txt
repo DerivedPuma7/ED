@@ -111,7 +111,10 @@
             ~Foo() {} // destructor
     };
 
-* 14) O que é o construtor padrão?  Quais os procedimentos realizados por ele? Quando é necessário modificá-lo?
+14) O que é o construtor padrão?  Quais os procedimentos realizados por ele? Quando é necessário modificá-lo?
+    14.1) é o construtor que não aceita nenhum tipo de parâmetro;
+    14.2) faz alocação estática. só aloca memória;
+    14.3) quando precisamos inicializar atributos;
 
 15) O que é um destrutor? Qual sua importância? 
     15.1) é um método executado automaticamente assim que a instância de uma classe é destruída;
@@ -129,36 +132,13 @@
             - menor desempenho
 
 17) Quando do uso de construtores, qual é a diferença da inicialização direta ou em lista? Dê exemplos. 
-    - inicialização direta:
-        - realizada dentro do escopo do construtor
-        - mais comum entre os desenvolvedores
-    - inicialização em lista:
-        - realizada após a declaração da função com o operador de escopo(::)
-    
-    exemplo:
-
-    // inicialização direta
-    class myClass {
-        private:
-            int attr1;
-            int attr2;
-        public:
-            myClass(int a, int b) {
-                attr1 = a;
-                attr2 = b;
-            }
+    class foo {
+        int x;
+        float f;
     }
 
-    // inicialização em lista
-    class myClass {
-        private:
-            int attr1;
-            int attr2;
-        
-        myClass::myClass(int a, int b) {
-            attr1 = a;
-            attr2 = b;
-        }
+    foo::foo(int a, float b): f(b) { // inicialização em lista aqui
+        x = a; // inicialização direta aqui
     }
 
     pontos importantes:
@@ -185,3 +165,9 @@
         errado:
             - int foo(int x, float y);
             - float foo(int x, float y);
+
+21) O que é sobrecarga de operadores? Quais as vantagens? Quais os riscos e desvantagens? Como é implementado em C++? 
+    21.1) sobrepor o comportamento de um operador já existente;
+    21.2)
+        vantagem: facilidade de escrita (PLP);
+        desvantagem: possibilidade alta de fazer merda. torna codigo mais ilegivel;
