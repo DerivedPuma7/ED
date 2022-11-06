@@ -7,6 +7,15 @@
     Solução de: Gustavo Ribeiro de Figueiredo
 */
 
+/**
+    ESTRATÉGIA PARA O REDIMENSIONAMENTO:
+    1- criei o atributo listaDeProdutosAuxiliar da classe estoque, e 2 novos métodos, criarListaProdutosAuxiliar() e copiarListaProdutos()
+    2- copiar a listaDeProdutos para a variavel listaDeProdutosAuxiliar ---> feito no método criarListaProdutosAuxiliar()
+    3- alocar dinamicamente listaDeProdutos como um vetor que tenha mais espaços (a quantidade de espaços vai depender da estratégia pedida em sala de aula)
+    4- depois de criado a nova lista com mais espaços, basts copiar de volta o que tem em listaDeProdutosAuxiliar para listaDeProdutos ---> feito no método copiarListaProdutos()
+    5- importante atualizar o valor de capacidadeMaxima
+*/
+
 #include <iostream>
 
 using namespace std;
@@ -79,11 +88,11 @@ bool estoque::buscarProduto(const string& nome, produto& umProduto) {
 void estoque::redimensionarCapacidade() { 
     criarListaProdutosAuxiliar();
 
-    int novoTamanho = quantidadeDeProdutos + 1;
+    int novoTamanho = capacidadeMaxima + 1;
     listaDeProdutos = new produto[novoTamanho];
 
     copiarListaProdutos();
-    capacidadeMaxima++;
+    capacidadeMaxima = novoTamanho;
 }
 
 void estoque::criarListaProdutosAuxiliar() {
