@@ -1,0 +1,62 @@
+{
+    "1": {
+        "pergunta": "Em computação, qual é a definição de pilha? O que significa LIFO?",
+        "resposta": {
+            "1.1":  "pilha é um amontoado de itens, uns sobre os outros",
+            "1.2": "LIFO significa Last In First Out. O ultimo a ser inserido é o primeiro a ser retirado"
+        }
+    },
+    "2": {
+        "pergunta": "Qual é a principal regra da pilha? Porque não devemos quebrá-la?",
+        "resposta": {
+            "2.1": "Não deve ser possível o acesso direto a um determinado item da pilha, como feito em arrays, por exemplo. Acesso sempre feito pelas extremidades",
+            "2.2": "Para evitar problemas :("
+        }
+    },
+    "3": {
+        "pergunta": "Com os seguintes símbolos: 5, 92, 18, 1, 38. Insira esses elementos na pilha, um por vez.",
+        "resposta": [
+            [5], [5, 92], [5, 92, 18], [5, 92, 18, 1], [5, 92, 18, 1, 38]
+        ]
+    },
+    "4": {
+        "pergunta": "Como faço para remover o elemento com o símbolo 18 da pilha, mantendo os demais na pilha, usando somente a estrutura pilha?",
+        "resposta": {
+            "1": "desempilhar os elementos acima do 18 e empilhar eles em outra pilha",
+            "2": "18 é o novo topo",
+            "3": "desempilha o 18",
+            "4": "empilha novamente os que estavam acima do 18"
+        }
+    },
+    "5": {
+        "pergunta": "Qual é a utilidade da pilha? Cite exemplos.",
+        "resposta": "é uma estrutura de dados que garante acesso a apenas um dado, o ultimo inserido",
+        "exemplos": [
+            "controle de paginas do navegador",
+            "git stash"
+        ]
+    },
+    "6": {
+        "pergunta": "Quais os principais componentes da pilha? O que é o topo? Qual é a importância do topo da pilha?",
+        "respostas": {
+            "6.1": [
+                "topo ---> ultimo elemento empilhado",
+                "fundo ----> primeiro elemento empilhado",
+                "apontador para o topo",
+                "nós ----> são os itens da pilha"
+            ],
+            "6.2": "topo é o último elemento que foi empilhado",
+            "6.3": "o topo é importante por que é o único elemento em que a pilha tem acesso"
+        }
+    },
+    "7": {
+        "pergunta": "Quais as formas mais comuns de implementação de pilha? Mostre como as diferentes implementações se comportam.",
+        "respostas": {
+            "7.1": {
+                "1": "implementação usando encadeamento de nós(elementos)",
+                "2": "implementação usando arranjo para armazenamento dos elementos"
+            }
+        }
+    }
+
+}

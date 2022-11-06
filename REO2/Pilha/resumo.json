@@ -1,0 +1,14 @@
+{
+    "NOH": {
+        "atributos": {
+            "int dado": "é o dado",
+            "noh* proximo": "apontador para o proximo noh"
+        }
+    },
+    "PILHA": {
+        "atributos": {
+            "int tamanho": "quantidade de elementos que a pilha possui",
+            "noh* topo": "apontador para o noh do topo"
+        }
+    }
+}
