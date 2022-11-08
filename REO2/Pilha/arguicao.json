@@ -102,7 +102,7 @@
                 "acessar topo da pilha",
                 "depurar/imprimir pilha"
             ],
-            "*11.2": ""
+            "*11.2": "não se deve quebrar a estrutura e percorrê-la com um for, por exemplo. Isso é uma quebra da estrutura. deve ser usado apenas para fins didaticos"
         }
     }
 
