@@ -1,7 +1,7 @@
 {
     "NOH": {
         "atributos": {
-            "int dado": "é o dado",
+            "(int, float, class) dado": "é o dado",
             "noh* proximo": "apontador para o proximo noh"
         }
     },

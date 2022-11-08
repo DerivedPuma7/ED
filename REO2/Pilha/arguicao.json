@@ -55,7 +55,54 @@
             "7.1": {
                 "1": "implementação usando encadeamento de nós(elementos)",
                 "2": "implementação usando arranjo para armazenamento dos elementos"
+            },
+            "7.2": {
+                "1": "cada nó da pilha possui informações e aponta para o proximo nó. o último nó da pilha aponta para null (termino da pilha)"
             }
+        }
+    },
+    "8": {
+        "pergunta": "Em C++, considerando a implementação por encadeamento de nós, o que é necessário fazer na função de criar pilha?",
+        "resposta": [
+            "topo aponta para null",
+            "tamanho = 0"
+        ]
+    },
+    "9": {
+        "pergunta": "Em C++, considerando a implementação por encadeamento de nós, o que é necessário fazer na função de inserir na pilha?",
+        "resposta": {
+            "novo topo": [
+                "criar novo nó com o dado",
+                "ponteiro do proximo aponta para o antigo topo"
+            ],
+            "ponteiro do topo": "aponta para o novo nó",
+            "topo antigo": [
+                "ponteiro do proximo aponta para null"
+            ],
+            "tamanho": "tamanho++"
+        }
+    },
+    "10": {
+        "pergunta": "Em C++, considerando a implementação por encadeamento de nós, o que é necessário fazer na função de remover da pilha?",
+        "resposta": {
+            "variavel_auxiliar": "aponta para o nó do topo",
+            "variavel qualquer": "armazenar o valor da variavel_auxiliar acima",
+            "novo topo": "aponta para variavel_auxiliar.proximo",
+            "apagar variavel_auxiliar": "delete variavel_auxiliar",
+            "tamanho": "tamanho--"
+        }
+    },
+    "11": {
+        "pergunta": "Além das três funções básicas, quais outras funções que a pilha pode ter? Quais são as características das funções para justificar a necessidade de implementá-las?",
+        "respostas": { 
+            "11.1": [
+                "retirar todos elementos da pilha, desempilhamento, 1 a 1",
+                "verificar numero de elementos da pilha",
+                "verificar se a pilha está vazia",
+                "acessar topo da pilha",
+                "depurar/imprimir pilha"
+            ],
+            "*11.2": ""
         }
     }
 
