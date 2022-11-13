@@ -83,12 +83,15 @@ Pilha::~Pilha() {
 }
 
 void mostrarMenu() {
+    cout << endl;
     cout << "O que você deseja fazer na pilha ?" << endl;
     cout << "Inserir dado: i" << endl;
     cout << "Acessar topo: t" << endl;
     cout << "Desempilhar: d" << endl;
     cout << "Limpar pilha: l" << endl;
+    cout << "Pilha vazia: v" << endl;
     cout << "Sair: s" << endl;
+    cout << endl;
 }
 
 int main() {
@@ -118,6 +121,15 @@ int main() {
         else if (opcaoMenu == 'l') {
             minhaPilha.limparTudo();
             cout << "pilha limpa!" << endl;
+        }
+        else if (opcaoMenu == 'v') {
+            bool pilhaVazia;
+            pilhaVazia = minhaPilha.pilhaVazia();
+            
+            string mensagem;
+            mensagem = pilhaVazia ? "Pilha vazia" : "Pilha não está vazia";
+
+            cout << mensagem << endl;
         }
         else if (opcaoMenu == 's') {
             break;
