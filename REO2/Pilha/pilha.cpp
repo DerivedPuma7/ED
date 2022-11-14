@@ -18,7 +18,7 @@ class Pilha {
         Dado desempilhar(); // ok
         void limparTudo(); // ok
         int getTamanho();
-        Dado espiarTopo() const; // ok
+        Dado espiarTopo(); // ok
         bool pilhaVazia(); // ok
     private:
         Noh* mPtrTopo;
@@ -41,18 +41,25 @@ void Pilha::empilhar(const Dado& dado) {
 }
 
 Dado Pilha::desempilhar() {
+    cout << "tamanho da pilha 1: " << this->mTamanho << endl;
     if (this->mTamanho = 0) {
         cout << "Impossível desempilhar!" << endl;
-        return -1;
+        return '-';
     }
+    cout << "tamanho da pilha 2: " << this->mTamanho << endl;
 
     Noh* auxiliar;
+    cout << "tamanho da pilha 3: " << this->mTamanho << endl;
     auxiliar = this->mPtrTopo;
+    cout << "tamanho da pilha 4: " << this->mTamanho << endl;
 
     Dado valor = auxiliar->mDado;
+    cout << "tamanho da pilha 5: " << this->mTamanho << endl;
 
     this->mPtrTopo = auxiliar->mPtrProx;
+    cout << "tamanho da pilha 6: " << this->mTamanho << endl;
     this->mTamanho--;
+    cout << "tamanho da pilha 7: " << this->mTamanho << endl;
 
     delete auxiliar; 
     return valor;
@@ -69,12 +76,19 @@ int Pilha::getTamanho() {
     return this->mTamanho;
 }
 
-Dado Pilha::espiarTopo() const {
-    Dado valor = this->mPtrTopo->mDado;
+Dado Pilha::espiarTopo() {
+    Dado valor;
+    valor = '-';
+
+    if(this->mPtrTopo != NULL) {
+        valor = this->mPtrTopo->mDado;
+    }
+
     return valor;
 }
 
 bool Pilha::pilhaVazia() {
+    cout << this->mTamanho;
     return (this->mTamanho == 0);
 }
 
@@ -116,7 +130,7 @@ int main() {
         else if (opcaoMenu == 'd') {
             char dado;
             dado = minhaPilha.desempilhar();
-            cout << "desempilhado o caracter: " + dado << endl;
+            cout << "desempilhado o caracter: " << dado << endl;
         }
         else if (opcaoMenu == 'l') {
             minhaPilha.limparTudo();
