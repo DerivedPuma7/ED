@@ -1,0 +1,39 @@
+{
+    "1": {
+        "enunciados": [
+            "Implemente uma pilha, utilizando armazenamento dos dados em arranjos (vetores). Segue esboço da implementação:",
+            "Não é necessário tratar problemas do tipo retirada de elemento de pilha vazia ou empilhamento em pilha cheia. A aplicação principal deverá criar uma pilha com capacidade para 20 elementos e realizar as seguintes operações na ordem apresentada:"
+        ],
+        "regras": [
+            "Empilhar cinco elementos",
+            "Desempilhar três elementos (imprimindo-os)",
+            "Empilhar mais quatro elementos",
+            "Desempilhar três elementos (imprimindo-os)",
+            "Imprime o topo da pilha, sem desempilhar (espia())",
+            "Imprime os elementos restantes da pilha (depura())",
+            "Imprime tamanho e posição do topo (info())"
+        ],
+        "entradas": [
+            "Cinco valores a serem empilhados",
+            "Quatro valores a serem empilhados"
+        ],
+        "saidas": [
+            "Três elementos desempilhados",
+            "Três elementos desempilhados",
+            "Topo da pilha",
+            "Elementos restantes da pilha",
+            "Tamanho e posição do topo"
+        ],
+        "exemploEntrada": [
+            "8 9 1 3 5",
+            "12 23 0 3"
+        ],
+        "exemploSaida": [
+            "5 3 1",
+            "3 0 23",
+            "12",
+            "8 9 12",
+            "3 2"
+        ]
+    }
+}
