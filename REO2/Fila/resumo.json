@@ -1,0 +1,136 @@
+{
+    "fila": {
+        "o que é": "é uma estrutura de dados que assume a ideia de sequência para armazenar as informações",
+        "princípio de funcionamento": {
+            "FIFO": "First In First Out"
+        },
+        "manipulação": "realizada pelas extremidades e não é possível acesso direto aos elementos, assim como na pilha",
+        "exemplo de funcionamento": {
+            "inserção": [
+                [1], [2, 1], [3, 2, 1], [4, 3, 2, 1]
+            ],
+            "remoção": [
+                [4, 3, 2, 1], [4, 3, 2], [4, 3], [4]
+            ]
+        }, 
+        "exemplos de aplicação": [
+            "buffers", "escalonamento de processos na CPF", "escalonamento de acesso à memória secundária",
+            "sincronização de processos assíncronos", "gerenciamento de fila de impressão", "controle de interrupções de hardware"
+        ],
+        "tipos de implementação": {
+            "encadeamento de nós": {
+                "fila": {
+                    "ponteiros": [
+                        "inicio",
+                        "fim"
+                    ],
+                    "class": [
+                        "int tamanho",
+                        "noh* inicio",
+                        "noh* fim"
+                    ]
+                },
+                "noh": {
+                    "ponteiros": [
+                        "proximo"
+                    ],
+                    "armazena": "dado do noh",
+                    "class": [
+                        "int dado",
+                        "noh* proximo"
+                    ]
+                }
+            },
+            "arranjo": {
+                "vantagens": [
+                    "operacoes rapidas (acesso, enfileiramento, desenfileiramento)"
+                ],
+                "desvantagens": [
+                    "espaço alocado sem necessidade",
+                    "impossibilidade de aumentar a capacidade da fila sem redimensionamento do vetor"
+                ],
+                "atributos": {
+                    "inicio": "atributo que armazena o indice do elemento no inicio da fila",
+                    "fim": "atributo que armazena o indice do elemento no fim da fila"
+                },
+                "operações": {
+                    "inserção": "fim avança uma posição",
+                    "retirada": "inicio avança uma posição"
+                },
+                "fila circular": {
+                    "problema": "seguido de varias inserções e remoções, o atributo de fim pode acabar sendo menor que o do início",
+                    "solução": "utilizar operador de resto",
+                    "exemplo": {
+                        "inserir": {
+                            "verificar": {
+                                "se tamanho == capacidade": "gerarErro('fila cheia')",
+                                "se posicaoInicio == -1": "fila vazia --> posicaoInicio++"
+                            },
+                            "posicaoFim": "= (posicaoFim + 1) % capacidade",
+                            "dados[posicaoFim]": "= valor",
+                            "tamanho": "incrementar"
+                        },
+                        "remover": {
+                            "verificar tamanho": {
+                                "se tamanho == 0": "gerarErro('fila vazia')"
+                            },
+                            "aux": "= dados['posicaoInicio']",
+                            "verificar": {
+                                "se posicaoInicio == posicaoFim": {
+                                    "o que significa": "removeu ultimo elemento da fila",
+                                    "posicaoFim": "= -1",
+                                    "posInicio": "= -1"
+                                },
+                                "se nao": {
+                                    "posicaoInicio": "= (posicaoInicio + 1) % capacidade"
+                                }
+                            },
+                            "tamanho": "decrementar"
+                        }
+                    }
+                }
+            }
+        },
+        "operações básicas": {
+            "criação": {
+                "ponteiro inicio fila": "NULL",
+                "ponteiro fim fila": "NULL",
+                "tamanho": 0
+            },
+            "destruição": "remover todos os elementos",
+            "inserção": {
+                "noh": "criar novo noh com o dado a ser armazenado na estrutura",
+                "verificação": {
+                    "se fila vazia": {
+                        "ponteiro inicio fila": "aponta para esse novo noh (é o primeiro)",
+                        "ponteiro fim fila": "aponta para esse novo noh (é o primeiro)"
+                    },
+                    "se fila nao vazia": {
+                        "ponteiro inicio fila": "não muda nada",
+                        "ponteiro fim fila": "aponta para esse novo noh",
+                        "ponteiro proximo noh antigo": "aponta para o novo noh"
+                    }
+                },
+                "tamanho": "incrementar"
+            },
+            "remoção": {
+                "aux": "recebe o noh apontado pelo inicio da fila",
+                "dado desinfileirado": "aux.dado",
+                "ponteiro inicio fila": "aux.proximo",
+                "tamanho": "decrementar",
+                "verificação": {
+                    "se fila vazia": {
+                        "ponteiro fim fila": "NULL"
+                    }
+                }
+            },
+            "outros": [
+                "verificar numero de elementos",
+                "verificar se fila está vazia",
+                "retirar todos os elementos",
+                "espiar inicio da fila",
+                "depurar fila (apenas didatico, é uma quebra de estrutura)"
+            ]
+        }
+    }
+}
