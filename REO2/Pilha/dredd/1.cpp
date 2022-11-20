@@ -65,10 +65,9 @@ Dado pilhav::espia() {
 
 void pilhav::depura() {
     int posicaoTopo = this->posTopo;
-    while (posicaoTopo >= 0) {
-        cout << this->dados[posicaoTopo] << endl;
-        posicaoTopo--;
-    }
+    for(int i = 0; i <= posicaoTopo; i++) {
+		cout << this->dados[i] << endl;
+	}
 }
 
 void pilhav::info() {
@@ -88,35 +87,27 @@ int main () {
     int valorEmpilhar;
     pilhav minhaPilha(capacidadePilha);
 
-    cout << "empilha 5" << endl;
     for(int i = 0; i < 5; i++) {
         cin >> valorEmpilhar;
         minhaPilha.empilha(valorEmpilhar);
     }
 
-    cout << "desempilha 3" << endl;
     for(int i = 0; i < 3; i++) {
         cout << minhaPilha.desempilha() << endl;
     }
 
-    cout << "empilha 4" << endl;
     for(int i = 0; i < 4; i++) {
         cin >> valorEmpilhar;
         minhaPilha.empilha(valorEmpilhar);
     }
 
-    cout << "desempilha 3" << endl;
     for(int i = 0; i < 3; i++) {
         cout << minhaPilha.desempilha() << endl;
     }
-    cout << "espia" << endl;
+
     cout << minhaPilha.espia() << endl;
-
-    cout << "depura" << endl;
     minhaPilha.depura();
-
-    cout << "info" << endl;
     minhaPilha.info();
 
-    return -1;
+    return 0;
 }
