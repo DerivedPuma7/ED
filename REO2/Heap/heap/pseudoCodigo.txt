@@ -20,4 +20,33 @@ corrigeDescendo(i) //posição do elemento que está sendo avaliado
         corrigeDescendo(maior); //recursivo
 
 constroiHeap(vetor, tamanho) //heapfy
+    dados = copiaDados(vetor);
+    //INICIO informa a posição inicial utilizada no vetor para todo i de METADE  até INICIO
+    corrigeDescendo(i);
+
+retiraRaiz()
+    se(this->tamanho < 1)
+        geraErro();
     
+    aux = dados[INICIO];
+    troca(dados[INICIO], DADOS[FINAL]);
+
+    tamanho--;
+
+    corrigeDescendo(INICIO);
+    efetuaAlgumaAcao(aux);
+
+corrigeSubindo(i)
+    pai = encontraPai(i);
+    se( (pai >= INICIO) AND (dados[i] > dados[pai]) )
+        troca(dados[i],  dados[pai]);
+        corrigeSubindo(pai);
+
+insere(valor)
+    se(this->tamanho == this->capacidade)
+        geraErro();
+    
+    dados[FINAL + 1] = valor;
+    corrigeSubindo(FINAL + 1);
+    
+    this->tamanho++;
