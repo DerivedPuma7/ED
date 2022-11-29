@@ -1,0 +1,7 @@
+{
+    "o que é": "árvore estritamente binária no qual cada pai possui uma cópia do maior elemento entre seus 2 filhos. O conteúdo de cada folha determina o conteúdo de todos os seus nohs",
+    "campeões": {
+        "campeão": "raiz",
+        "vice-campeão": "filho da raiz que não tem o mesmo valor"
+    }
+}
