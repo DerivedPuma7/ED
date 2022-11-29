@@ -1,0 +1,23 @@
+criarHeap(umaCapacidade)
+    this->capacidade = umaCapacidade;
+    this->dados = alocaVetorDeDados(this->capacidade);
+    this->tamanho = 0;
+
+destruirHeap()
+    desalocarVetorDeDados(this->dados);
+
+corrigeDescendo(i) //posição do elemento que está sendo avaliado
+    filhoEsquerdo = encontraEsquerdo(i);
+    filhoDireito = encontraDireito(i);
+    maior = i; // posição maior valor;
+
+    se( (filhoEsquerdo <= FINAL) AND (dados[filhoEsquerdo] > dados[maior]) )
+        maior = filhoEsquerdo;
+    se( (filhoDireito <= FINAL) AND (dados[filhoDireito] > dados[maior]) )
+        maior = filhoDireito;
+    se(maior != i)
+        troca(dados[i], dados[maior]);
+        corrigeDescendo(maior); //recursivo
+
+constroiHeap(vetor, tamanho) //heapfy
+    

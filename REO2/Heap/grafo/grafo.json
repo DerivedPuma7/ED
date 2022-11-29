@@ -1,0 +1,9 @@
+{
+    "o que é": "conjunto de arestas e nohs",
+    "nohs": "vertices",
+    "arestas": "ligação entre os vertices",
+    "caminho": "qualquer sequencia de arestas que permite ligar um noh em outro noh",
+    "grafo conexo": "um grafo é conexo quando existe uma sequência de arestas qualquer que permite ligar um noh em outro",
+    "grafo ciclico": "quando saindo de um noh específico, é possível voltar a ele, passando por outro noh",
+    "arvores": "são um tipo especial de grafo"
+}

@@ -1,0 +1,19 @@
+{
+    "o que é": "é um grafo conexo e acíclico",
+    "árvore enraizada": "quando um vértice é escolhido como especial, chamado raíz. Geralmente representado no topo",
+    "filhos": "são os nohs diretamente ligados ao noh pai em um nível inferior",
+    "folhas": "são os nohs que não possuem filhos",
+    "nohs": {
+        "grau": "número de nohs filhos",
+        "profundidade": "distância até a raiz (número de arestas até a raiz)"
+    },
+    "arvore": {
+        "grau da árvore": "é dado pelo maior grau dos seus nohs",
+        "altura da árvore": "é a maior profundidade de seus nós"
+    },
+    "balanceada": "todos os nohs FOLHA estão em um MESMO nível ou UM nível de diferença",
+    "completa": {
+        "o que é": "quando, com excessão das folhas, TODOS os nohs possuem o mesmo grau da árvore",
+        "é aceitavel": "quando o ultimo noh não folha, possua grau inferior, uma vez que faltou elementos para preencher os nohs não folha"
+    }
+}

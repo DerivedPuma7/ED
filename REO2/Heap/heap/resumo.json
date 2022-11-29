@@ -1,0 +1,11 @@
+{
+    "o que é": "é uma árvore binária completa e balanceada",
+    "usado para": [
+        "implementar filas de prioridade",
+        "método de ordenação HeapSort"
+    ],
+    "tipos de Heap": {
+        "maxHeap": "cada noh é MAIOR que seus filhos e seus decendentes",
+        "minHeap": "cada noh é MENOR que seus filhos e seus decendentes"
+    }
+}
