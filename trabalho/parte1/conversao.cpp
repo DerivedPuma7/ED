@@ -32,6 +32,101 @@ struct SubnationalPeriodLifeTables
 	char value[10]; 
 };
 
+void setMeasure(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
+    if(caracter == ',') {
+        controladorAtributoAtual = true;
+        controladorProximoAtributo = false;
+        indiceAttr = 0;
+    }
+    else {
+        registro.measure[indiceAttr] = caracter;
+        indiceAttr++;
+    }
+}
+
+void setQuantile(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
+    if(caracter == ',') {
+        controladorAtributoAtual = true;
+        controladorProximoAtributo = false;
+        indiceAttr = 0;
+    }
+    else {
+        registro.quantile[indiceAttr] = caracter;
+        indiceAttr++;
+    }
+}
+
+void setArea(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
+    if(caracter == ',') {
+        controladorAtributoAtual = true;
+        controladorProximoAtributo = false;
+        indiceAttr = 0;
+    }
+    else {
+        registro.area[indiceAttr] = caracter;
+        indiceAttr++;
+    }
+}
+
+void setSex(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
+    if(caracter == ',') {
+        controladorAtributoAtual = true;
+        controladorProximoAtributo = false;
+        indiceAttr = 0;
+    }
+    else {
+        registro.sex[indiceAttr] = caracter;
+        indiceAttr++;
+    }
+}
+
+void setAge(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
+    if(caracter == ',') {
+        controladorAtributoAtual = true;
+        controladorProximoAtributo = false;
+        indiceAttr = 0;
+    }
+    else {
+        registro.age[indiceAttr] = caracter;
+        indiceAttr++;
+    }
+}
+
+void setGeography(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
+    if(caracter == ',') {
+        controladorAtributoAtual = true;
+        controladorProximoAtributo = false;
+        indiceAttr = 0;
+    }
+    else {
+        registro.geography[indiceAttr] = caracter;
+        indiceAttr++;
+    }
+}
+
+void setEthnic(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
+    if(caracter == ',') {
+        controladorAtributoAtual = true;
+        controladorProximoAtributo = false;
+        indiceAttr = 0;
+    }
+    else {
+        registro.ethnic[indiceAttr] = caracter;
+        indiceAttr++;
+    }
+}
+
+void setValue(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, int &indiceAttr) {
+    if(caracter == ',') {
+        controladorAtributoAtual = true;
+        indiceAttr = 0;
+    }
+    else {
+        registro.value[indiceAttr] = caracter;
+        indiceAttr++;
+    }
+}
+
 void tratarRegistro(SubnationalPeriodLifeTables &registro, string dados) {
     int tamanhoStringDados = dados.length() - 1;
     int indiceAtributoStruct = 0;
@@ -49,91 +144,28 @@ void tratarRegistro(SubnationalPeriodLifeTables &registro, string dados) {
 
     for(int i = 0; i < tamanhoStringDados; i++) {
         if(!measureCompleto) {
-            if(dados[i] == ',') {
-                measureCompleto = true;
-                quantileCompleto = false;
-                indiceAttr = 0;
-            }
-            else {
-                registro.measure[indiceAttr] = dados[i];
-                indiceAttr++;
-            }
+            setMeasure(registro, dados[i], measureCompleto, quantileCompleto, indiceAttr);
         }
         else if(!quantileCompleto) {
-            if(dados[i] == ',') {
-                quantileCompleto = true;
-                areaCompleto = false;
-                indiceAttr = 0;
-            }
-            else {
-                registro.quantile[indiceAttr] = dados[i];
-                indiceAttr++;
-            }
+            setQuantile(registro, dados[i], quantileCompleto, areaCompleto, indiceAttr);
         }
         else if(!areaCompleto) {
-            if(dados[i] == ',') {
-                areaCompleto = true;
-                sexCompleto = false;
-                indiceAttr = 0;
-            }
-            else {
-                registro.area[indiceAttr] = dados[i];
-                indiceAttr++;
-            }
+            setArea(registro, dados[i], areaCompleto, sexCompleto, indiceAttr);
         }
         else if(!sexCompleto) {
-            if(dados[i] == ',') {
-                sexCompleto = true;
-                agecompleto = false;
-                indiceAttr = 0;
-            }
-            else {
-                registro.sex[indiceAttr] = dados[i];
-                indiceAttr++;
-            }
+            setSex(registro, dados[i], sexCompleto, agecompleto, indiceAttr);
         }
         else if(!agecompleto) {
-            if(dados[i] == ',') {
-                agecompleto = true;
-                geographyCompleto = false;
-                indiceAttr = 0;
-            }
-            else {
-                registro.age[indiceAttr] = dados[i];
-                indiceAttr++;
-            }
+            setAge(registro, dados[i], agecompleto, geographyCompleto, indiceAttr);
         }
         else if(!geographyCompleto) {
-            if(dados[i] == ',') {
-                geographyCompleto = true;
-                ethnicCompleto = false;
-                indiceAttr = 0;
-            }
-            else {
-                registro.geography[indiceAttr] = dados[i];
-                indiceAttr++;
-            }
+            setGeography(registro, dados[i], geographyCompleto, ethnicCompleto, indiceAttr);
         }
         else if(!ethnicCompleto) {
-            if(dados[i] == ',') {
-                ethnicCompleto = true;
-                valueCompleto = false;
-                indiceAttr = 0;
-            }
-            else {
-                registro.ethnic[indiceAttr] = dados[i];
-                indiceAttr++;
-            }
+            setEthnic(registro, dados[i], ethnicCompleto, valueCompleto, indiceAttr);
         }
         else if(!valueCompleto) {
-            if(dados[i] == ',') {
-                valueCompleto = true;
-                indiceAttr = 0;
-            }
-            else {
-                registro.value[indiceAttr] = dados[i];
-                indiceAttr++;
-            }
+            setValue(registro, dados[i], valueCompleto, indiceAttr);
         }
     }
 }
