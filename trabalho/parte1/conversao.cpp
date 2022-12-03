@@ -143,7 +143,7 @@ int main(){
 	ofstream arquivoEscritaBin;
 	
 	string lixo;
-    string dados;
+    string dadosLeitura;
 	SubnationalPeriodLifeTables registro;
 	
 	arquivoEscritaBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out);
@@ -152,17 +152,17 @@ int main(){
 		cout << "Não foi possível ler o arquivo" << endl;
 		return 0;
 	}
-    char c[1];
 
-	getline(arquivoLeituraCsv, lixo);
+    char c[1];
 	int contador = 0; 
 
+	getline(arquivoLeituraCsv, lixo);
     while ( arquivoLeituraCsv.read(c,0) ) {
-
-        getline(arquivoLeituraCsv, dados);
-        tratarRegistro(registro, dados);
+        getline(arquivoLeituraCsv, dadosLeitura);
+        tratarRegistro(registro, dadosLeitura);
 
 		arquivoEscritaBin.write((const char *) (&registro), sizeof(SubnationalPeriodLifeTables));
+
         cout << contador << endl;
 		contador++;
 	}
