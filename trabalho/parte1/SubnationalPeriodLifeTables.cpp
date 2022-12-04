@@ -23,6 +23,7 @@ class SubnationalPeriodLifeTablesOperacoes {
         void busca();
         void busca(int comeco, int fim);
         void print(SubnationalPeriodLifeTables registro);
+        void trocaPosicao(int primeiraPosicao, int segundaPosicao);
 };
 
 void SubnationalPeriodLifeTablesOperacoes::print(SubnationalPeriodLifeTables registro){
@@ -83,6 +84,34 @@ void SubnationalPeriodLifeTablesOperacoes::busca(int comeco, int fim){
     }
 };
 
+void SubnationalPeriodLifeTablesOperacoes::trocaPosicao(int primeiraPosicao, int segundaPosicao){
+    SubnationalPeriodLifeTables registroPrimeiraPosicao;
+    SubnationalPeriodLifeTables registroSegundaPosicao;
+    fstream arquivoLeituraBin;
+
+    arquivoLeituraBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out | ios::in);
+
+    SubnationalPeriodLifeTables registro;
+
+    if (!arquivoLeituraBin)
+    {
+        cout << "Não foi possível abrir o arquivo" << endl;
+    }
+
+    arquivoLeituraBin.seekg(primeiraPosicao * sizeof(SubnationalPeriodLifeTables));
+    arquivoLeituraBin.read((char *)&registroPrimeiraPosicao, sizeof(SubnationalPeriodLifeTables));
+
+    arquivoLeituraBin.seekg(segundaPosicao * sizeof(SubnationalPeriodLifeTables));
+    arquivoLeituraBin.read((char *)&registroSegundaPosicao, sizeof(SubnationalPeriodLifeTables));
+
+    arquivoLeituraBin.seekg(primeiraPosicao * sizeof(SubnationalPeriodLifeTables));
+    arquivoLeituraBin.write((char *)&registroSegundaPosicao, sizeof(SubnationalPeriodLifeTables));
+
+    arquivoLeituraBin.seekg(segundaPosicao * sizeof(SubnationalPeriodLifeTables));
+    arquivoLeituraBin.write((char *)&registroPrimeiraPosicao, sizeof(SubnationalPeriodLifeTables));
+
+}
+
 char menuPrincipal(){
     char opcao;
     system("clear||cls");
@@ -100,7 +129,7 @@ char menuPrincipal(){
 
 void retornarOuSair(){
     char garbage;
-    cout << "Precione qualquer tecla para voltar ao menu principal!" << endl;
+    cout << "\nPrecione qualquer tecla para voltar ao menu principal!" << endl;
     cin >> garbage;
 };
 
@@ -129,6 +158,16 @@ int main()
                 operacoes.busca(inicio, fim);
                 retornarOuSair();
                 break;
+            case 'c':
+                system("clear||cls");
+                cout << "================ Trocar Posição dos registros ================" << endl;
+                int primeira, segunda;
+                cout << "Digite a primeira posição: ";
+                cin >> primeira;
+                cout << "Digite a segunda posição: ";
+                cin >> segunda;
+                operacoes.trocaPosicao(primeira, segunda);
+                retornarOuSair();
             default:
                 break;
         }
