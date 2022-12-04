@@ -67,6 +67,12 @@ void SubnationalPeriodLifeTablesOperacoes::busca(int comeco, int fim){
         cout << "Não foi possível abrir o arquivo" << endl;
     }
 
+    if(comeco < 0) comeco = 0;
+    if(comeco > fim) {
+        fim = comeco;
+        comeco = 0;
+    }
+
     while (comeco <= fim) {
         arquivoLeituraBin.seekg(comeco * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.read((char *)&registro, sizeof(SubnationalPeriodLifeTables));
