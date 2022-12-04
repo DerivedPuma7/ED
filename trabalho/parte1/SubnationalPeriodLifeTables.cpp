@@ -24,6 +24,7 @@ class SubnationalPeriodLifeTablesOperacoes {
         void busca(int comeco, int fim);
         void print(SubnationalPeriodLifeTables registro);
         void trocaPosicao(int primeiraPosicao, int segundaPosicao);
+        void alterarRegistroPosicao(int posicao);
 };
 
 void SubnationalPeriodLifeTablesOperacoes::print(SubnationalPeriodLifeTables registro){
@@ -112,6 +113,41 @@ void SubnationalPeriodLifeTablesOperacoes::trocaPosicao(int primeiraPosicao, int
 
 }
 
+void SubnationalPeriodLifeTablesOperacoes::alterarRegistroPosicao(int posicao){
+    fstream arquivoLeituraBin;
+
+    arquivoLeituraBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out | ios::in);
+
+    SubnationalPeriodLifeTables registro;
+    
+    string garbage;
+
+    if (!arquivoLeituraBin)
+    {
+        cout << "Não foi possível abrir o arquivo" << endl;
+    }
+
+
+    cout << "Measure: ";
+    cin >> registro.measure;
+    cout << "Quantile: ";
+    cin >> registro.quantile;
+    cout << "Area: ";
+    cin >> registro.sex;
+    cout << "Sex: ";
+    cin >> registro.sex;
+    cout << "Age: ";
+    cin >> registro.age;
+    cout << "Geography: ";
+    cin >> registro.geography;
+    cout << "Ethnic: ";
+    cin >> registro.ethnic;
+
+    arquivoLeituraBin.seekg(posicao * sizeof(SubnationalPeriodLifeTables));
+    arquivoLeituraBin.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
+
+}
+
 char menuPrincipal(){
     char opcao;
     system("clear||cls");
@@ -168,6 +204,18 @@ int main()
                 cin >> segunda;
                 operacoes.trocaPosicao(primeira, segunda);
                 retornarOuSair();
+            case 'd':
+                system("clear||cls");
+                cout << "================ Mudar Registro de uma Posição ================" << endl;
+                int posicao;
+                cout << "Digite a posição do registro: ";
+                cin >> posicao;
+                operacoes.alterarRegistroPosicao(posicao);
+                retornarOuSair();
+                break;
+            case 'e':
+
+                break;
             default:
                 break;
         }

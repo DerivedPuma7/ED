@@ -113,8 +113,12 @@ int main()
 		linhaCsv.tratarLinha(linhaCsv.restanteLinha);
 		registro.value = stof(linhaCsv.atributoLinha);
 
+		cout << '.';
+
 		arquivoEscritaBin.write((const char *)(&registro), sizeof(SubnationalPeriodLifeTables));
 	}
+
+	cout << endl;
 
 	arquivoEscritaBin.close();
 	arquivoLeituraCsv.close();
