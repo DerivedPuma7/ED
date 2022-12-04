@@ -7,7 +7,7 @@ alunos = {
 	2:{
 		Nome: Cesar Augusto Pires
 		Turma: 14A
-	}, 
+	},
 	3:{
 		Nome: Caio César da Rocha
 		Turma: 14C
@@ -16,188 +16,112 @@ alunos = {
 */
 
 #include <iostream>
+#include <cstring>
 #include <fstream>
+#include <cstdlib>
+#include <string>
 
 using namespace std;
 
 struct SubnationalPeriodLifeTables
 {
-	char measure[2]; 
-	char quantile[5]; 
-	char area[30]; 
-	char sex[20]; 
-	char age[20]; 
-	char geography[40]; 
-	char ethnic[20]; 
-	char value[10]; 
+	char measure[256];
+	float quantile;
+	char area[256];
+	char sex[255];
+	char age[255];
+	char geography[255];
+	char ethnic[255];
+	float value;
 };
 
-void setMeasure(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
-    if(caracter == ',') {
-        controladorAtributoAtual = true;
-        controladorProximoAtributo = false;
-        indiceAttr = 0;
-    }
-    else {
-        registro.measure[indiceAttr] = caracter;
-        indiceAttr++;
-    }
-}
-
-void setQuantile(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
-    if(caracter == ',') {
-        controladorAtributoAtual = true;
-        controladorProximoAtributo = false;
-        indiceAttr = 0;
-    }
-    else {
-        registro.quantile[indiceAttr] = caracter;
-        indiceAttr++;
-    }
-}
-
-void setArea(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
-    if(caracter == ',') {
-        controladorAtributoAtual = true;
-        controladorProximoAtributo = false;
-        indiceAttr = 0;
-    }
-    else {
-        registro.area[indiceAttr] = caracter;
-        indiceAttr++;
-    }
-}
-
-void setSex(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
-    if(caracter == ',') {
-        controladorAtributoAtual = true;
-        controladorProximoAtributo = false;
-        indiceAttr = 0;
-    }
-    else {
-        registro.sex[indiceAttr] = caracter;
-        indiceAttr++;
-    }
-}
-
-void setAge(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
-    if(caracter == ',') {
-        controladorAtributoAtual = true;
-        controladorProximoAtributo = false;
-        indiceAttr = 0;
-    }
-    else {
-        registro.age[indiceAttr] = caracter;
-        indiceAttr++;
-    }
-}
-
-void setGeography(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
-    if(caracter == ',') {
-        controladorAtributoAtual = true;
-        controladorProximoAtributo = false;
-        indiceAttr = 0;
-    }
-    else {
-        registro.geography[indiceAttr] = caracter;
-        indiceAttr++;
-    }
-}
-
-void setEthnic(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, bool &controladorProximoAtributo, int &indiceAttr) {
-    if(caracter == ',') {
-        controladorAtributoAtual = true;
-        controladorProximoAtributo = false;
-        indiceAttr = 0;
-    }
-    else {
-        registro.ethnic[indiceAttr] = caracter;
-        indiceAttr++;
-    }
-}
-
-void setValue(SubnationalPeriodLifeTables &registro, char caracter, bool &controladorAtributoAtual, int &indiceAttr) {
-    if(caracter == ',') {
-        controladorAtributoAtual = true;
-        indiceAttr = 0;
-    }
-    else {
-        registro.value[indiceAttr] = caracter;
-        indiceAttr++;
-    }
-}
-
-void tratarRegistro(SubnationalPeriodLifeTables &registro, string dados) {
-    int tamanhoStringDados = dados.length() - 1;
-    int indiceAtributoStruct = 0;
-
-    bool measureCompleto = false;
-    bool quantileCompleto = true;
-    bool areaCompleto = true;
-    bool sexCompleto = true;
-    bool agecompleto = true;
-    bool geographyCompleto = true;
-    bool ethnicCompleto = true;
-    bool valueCompleto = true;
-
-    int indiceAttr = 0;
-
-    for(int i = 0; i < tamanhoStringDados; i++) {
-        if(!measureCompleto) {
-            setMeasure(registro, dados[i], measureCompleto, quantileCompleto, indiceAttr);
-        }
-        else if(!quantileCompleto) {
-            setQuantile(registro, dados[i], quantileCompleto, areaCompleto, indiceAttr);
-        }
-        else if(!areaCompleto) {
-            setArea(registro, dados[i], areaCompleto, sexCompleto, indiceAttr);
-        }
-        else if(!sexCompleto) {
-            setSex(registro, dados[i], sexCompleto, agecompleto, indiceAttr);
-        }
-        else if(!agecompleto) {
-            setAge(registro, dados[i], agecompleto, geographyCompleto, indiceAttr);
-        }
-        else if(!geographyCompleto) {
-            setGeography(registro, dados[i], geographyCompleto, ethnicCompleto, indiceAttr);
-        }
-        else if(!ethnicCompleto) {
-            setEthnic(registro, dados[i], ethnicCompleto, valueCompleto, indiceAttr);
-        }
-        else if(!valueCompleto) {
-            setValue(registro, dados[i], valueCompleto, indiceAttr);
-        }
-    }
-}
-
-int main(){
-	ifstream arquivoLeituraCsv("baseDados.csv");
+int main()
+{
+	ifstream arquivoLeituraCsv("SubnationalPeriodLifeTables.csv");
 	ofstream arquivoEscritaBin;
-	
-	string lixo;
-    string dadosLeitura;
+
+	string linha;
 	SubnationalPeriodLifeTables registro;
-	
+
 	arquivoEscritaBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out);
-	
-	if(!arquivoLeituraCsv) {
+
+	if (!arquivoLeituraCsv)
+	{
 		cout << "Não foi possível ler o arquivo" << endl;
 		return 0;
 	}
 
-    char c[1];
-	int contador = 0; 
+	string campo;
+	unsigned posFimCampo;
 
-	getline(arquivoLeituraCsv, lixo);
-    while ( arquivoLeituraCsv.read(c,0) ) {
-        getline(arquivoLeituraCsv, dadosLeitura);
-        tratarRegistro(registro, dadosLeitura);
+	getline(arquivoLeituraCsv, linha);
+	int contador = 0;
+	char c[1];
+	while (getline(arquivoLeituraCsv, linha))
+	{
+		// Obtem registro, texto - Measure
+		posFimCampo = linha.find(',');
+		campo = linha.substr(0, posFimCampo);
+		linha.erase(0, posFimCampo + 1);
+		strcpy(registro.measure, campo.c_str());
 
-		arquivoEscritaBin.write((const char *) (&registro), sizeof(SubnationalPeriodLifeTables));
+		// Obtem registro, float - Quantile
+		posFimCampo = linha.find(',');
+		campo = linha.substr(0, posFimCampo);
+		linha.erase(0, posFimCampo + 1);
+		if (campo[campo.length() - 1] == '%')
+		{
+			campo = campo.substr(0, campo.length() - 1);
+			registro.quantile = stof(campo) / 100;
+		}
+		else
+		{
+			registro.quantile = stof(campo);
+		}
 
-        cout << contador << endl;
-		contador++;
+		// Obtem registro, texto - Area
+		posFimCampo = linha.find(',');
+		campo = linha.substr(0, posFimCampo);
+		linha.erase(0, posFimCampo + 1);
+		strcpy(registro.area, campo.c_str());
+
+		// Obtem registro, texto - Sex
+		posFimCampo = linha.find(',');
+		campo = linha.substr(0, posFimCampo);
+		linha.erase(0, posFimCampo + 1);
+		strcpy(registro.sex, campo.c_str());
+
+		// Obtem registro, texto - Age
+		posFimCampo = linha.find(',');
+		campo = linha.substr(0, posFimCampo);
+		linha.erase(0, posFimCampo + 1);
+		strcpy(registro.age, campo.c_str());
+
+		// Obtem registro, texto - Geography
+		posFimCampo = linha.find(',');
+		campo = linha.substr(0, posFimCampo);
+		linha.erase(0, posFimCampo + 1);
+		strcpy(registro.geography, campo.c_str());
+
+		// Obtem registro, texto - Ethnic
+		posFimCampo = linha.find(',');
+		campo = linha.substr(0, posFimCampo);
+		linha.erase(0, posFimCampo + 1);
+		strcpy(registro.ethnic, campo.c_str());
+
+		// Obtem registro, texto - Value
+		posFimCampo = linha.find(',');
+		campo = linha.substr(0, posFimCampo);
+		linha.erase(0, posFimCampo + 1);
+		registro.value = stof(campo);
+
+		cout << '.';
+
+		arquivoEscritaBin.write((const char *)(&registro), sizeof(SubnationalPeriodLifeTables));
+		;
 	}
+
+	cout << endl;
 
 	arquivoEscritaBin.close();
 	arquivoLeituraCsv.close();
