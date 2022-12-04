@@ -8,6 +8,7 @@ using namespace std;
 
 struct SubnationalPeriodLifeTables
 {
+    int id;
     char measure[256];
     float quantile;
     char area[256];
@@ -29,6 +30,7 @@ class SubnationalPeriodLifeTablesOperacoes {
 };
 
 void SubnationalPeriodLifeTablesOperacoes::print(SubnationalPeriodLifeTables registro){
+        cout << registro.id << " | ";
         cout << registro.measure << " | ";
         cout << registro.quantile*100 << "% | ";
         cout << registro.area << " | ";
@@ -43,6 +45,8 @@ void SubnationalPeriodLifeTablesOperacoes::busca(){
     ifstream arquivoLeituraBin("SubnationalPeriodLifeTables.bin");
 
     SubnationalPeriodLifeTables registro;
+    arquivoLeituraBin.seekg(0, arquivoLeituraBin.end);
+    int quantidadeRegistros = arquivoLeituraBin.tellg()/sizeof(SubnationalPeriodLifeTables);
 
     if (!arquivoLeituraBin)
     {
@@ -50,14 +54,14 @@ void SubnationalPeriodLifeTablesOperacoes::busca(){
     }
 
     int contador = 0;
-    do {
+    while (contador < quantidadeRegistros) {
         arquivoLeituraBin.seekg(contador * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.read((char *)&registro, sizeof(SubnationalPeriodLifeTables));
 
         this->print(registro);
 
         contador++;
-    } while (arquivoLeituraBin); 
+    } 
 };
 
 void SubnationalPeriodLifeTablesOperacoes::busca(int comeco, int fim){
@@ -112,8 +116,6 @@ void SubnationalPeriodLifeTablesOperacoes::trocaPosicao(int primeiraPosicao, int
         arquivoLeituraBin.seekg(segundaPosicao * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.write((char *)&registroPrimeiraPosicao, sizeof(SubnationalPeriodLifeTables));
     }
-
-
 }
 
 void SubnationalPeriodLifeTablesOperacoes::insereNaPosicao(int posicao) {
@@ -127,34 +129,20 @@ void SubnationalPeriodLifeTablesOperacoes::insereNaPosicao(int posicao) {
 
     SubnationalPeriodLifeTables registroDeInteresse;
     SubnationalPeriodLifeTables aux1;
-    SubnationalPeriodLifeTables aux2;
-    int posicaoDeInteresse = posicao;
-    int segundaPosicao;
-    int terceiraPosicao;
 
-    cout << sizeof(arquivoLeituraBin) << endl;
-    cout << sizeof(SubnationalPeriodLifeTables) << endl;
+    arquivoLeituraBin.seekg(0, arquivoLeituraBin.end);
+    int quantidadeRegistros = arquivoLeituraBin.tellg()/sizeof(SubnationalPeriodLifeTables);
 
-    do{
-        segundaPosicao = posicao + 1;
-        terceiraPosicao = posicao + 2;
+    while(quantidadeRegistros >= posicao){
 
-        arquivoLeituraBin.seekg(posicao * sizeof(SubnationalPeriodLifeTables));
+        arquivoLeituraBin.seekg(quantidadeRegistros * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.read((char *)&aux1, sizeof(SubnationalPeriodLifeTables));
 
-        arquivoLeituraBin.seekg(segundaPosicao * sizeof(SubnationalPeriodLifeTables));
-        arquivoLeituraBin.read((char *)&aux2, sizeof(SubnationalPeriodLifeTables));
+        arquivoLeituraBin.seekg(quantidadeRegistros + 1 * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.write((char *)&aux1, sizeof(SubnationalPeriodLifeTables));
 
-        arquivoLeituraBin.seekg(segundaPosicao + 1 * sizeof(SubnationalPeriodLifeTables));
-
-        posicao = posicao + 1;
-
-        cout << "." << posicao << endl;
-
-        arquivoLeituraBin.seekg(terceiraPosicao * sizeof(SubnationalPeriodLifeTables)); // controle do fim
+        quantidadeRegistros--;
     }
-    while(arquivoLeituraBin);
 }
 
 void SubnationalPeriodLifeTablesOperacoes::alterarRegistroPosicao(int posicao){
@@ -255,7 +243,6 @@ int main()
             case 'e':
                 system("clear||cls");
                 cout << "================ Inserir registro em uma posição ================" << endl;
-                int posicao;
                 cout << "Digite a posição: ";
                 cin >> posicao;
                 operacoes.insereNaPosicao(posicao);
