@@ -27,6 +27,7 @@ class SubnationalPeriodLifeTablesOperacoes {
         void trocaPosicao(int primeiraPosicao, int segundaPosicao);
         void alterarRegistroPosicao(int posicao);
         void insereNaPosicao(int posicao);
+        void transformaEmTxt();
 };
 
 void SubnationalPeriodLifeTablesOperacoes::print(SubnationalPeriodLifeTables registro){
@@ -175,6 +176,41 @@ void SubnationalPeriodLifeTablesOperacoes::alterarRegistroPosicao(int posicao){
     arquivoLeituraBin.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
 }
 
+void SubnationalPeriodLifeTablesOperacoes::transformaEmTxt() {
+    ifstream arquivoLeituraBin("SubnationalPeriodLifeTables.bin");
+    if(!arquivoLeituraBin) {
+        cout << "Não foi possível abrir o arquivo" << endl;
+    }
+
+    ofstream arquivoEscritaTxt("SubnationalPeriodLifeTables.txt");
+    SubnationalPeriodLifeTables registro;
+
+    arquivoLeituraBin.seekg(0, arquivoLeituraBin.end);
+    int comeco = 0;
+    int fim = arquivoLeituraBin.tellg()/sizeof(SubnationalPeriodLifeTables);
+
+    while (comeco <= fim) {
+        arquivoLeituraBin.seekg(comeco * sizeof(SubnationalPeriodLifeTables));
+        arquivoLeituraBin.read((char *)&registro, sizeof(SubnationalPeriodLifeTables));
+
+        this->print(registro);
+
+        arquivoEscritaTxt << registro.id << " | "
+            << registro.measure << " | "
+            << registro.quantile*100 << "% | "
+            << registro.area << " | "
+            << registro.sex << " | "
+            << registro.age << " | "
+            << registro.geography << " | "
+            << registro.ethnic << " | "
+            << registro.value << endl;
+
+        comeco++;
+    }
+
+    arquivoEscritaTxt.close();
+}
+
 char menuPrincipal(){
     char opcao;
     system("clear||cls");
@@ -184,7 +220,8 @@ char menuPrincipal(){
     cout << "(c) Trocar posição de dois registros" << endl;
     cout << "(d) Alterar dados de uma posição" << endl;
     cout << "(e) Adicionar registro em uma posição" << endl;
-    cout << "(f) Sair" << endl;
+    cout << "(f) Gerar arquivo .txt" << endl;
+    cout << "(s) Sair" << endl;
     cout << "Opção: ";
     cin >> opcao;
     return opcao;
@@ -247,11 +284,16 @@ int main()
                 cin >> posicao;
                 operacoes.insereNaPosicao(posicao);
                 retornarOuSair();
+            case 'f':
+                system("clear||cls");
+                cout << "================ Gerar arquivo .txt ================" << endl;
+                operacoes.transformaEmTxt();
+                retornarOuSair();
             default:
                 break;
         }
 
-    } while(opcao != 'f');
+    } while(opcao != 's');
 
     return 0;
 }
