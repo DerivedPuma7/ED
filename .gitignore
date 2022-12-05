@@ -8,7 +8,7 @@
 .vscode
 *.bin
 *.h
-*.json
 *.csv
+*.txt
 
 teste.cpp
