@@ -19,7 +19,7 @@ struct SubnationalPeriodLifeTables
     float value;
 };
 
-class SubnationalPeriodLifeTablesOperacoes {
+class Operacoes {
     public:
         void busca();
         void busca(int comeco, int fim);
@@ -31,7 +31,7 @@ class SubnationalPeriodLifeTablesOperacoes {
         SubnationalPeriodLifeTables novoDado(int posicao);
 };
 
-void SubnationalPeriodLifeTablesOperacoes::print(SubnationalPeriodLifeTables registro){
+void Operacoes::print(SubnationalPeriodLifeTables registro){
         cout << registro.id << " | ";
         cout << registro.measure << " | ";
         cout << registro.quantile*100 << "% | ";
@@ -43,7 +43,7 @@ void SubnationalPeriodLifeTablesOperacoes::print(SubnationalPeriodLifeTables reg
         cout << registro.value << endl;
 }
 
-void SubnationalPeriodLifeTablesOperacoes::busca(){
+void Operacoes::busca(){
     ifstream arquivoLeituraBin("SubnationalPeriodLifeTables.bin");
 
     SubnationalPeriodLifeTables registro;
@@ -66,7 +66,7 @@ void SubnationalPeriodLifeTablesOperacoes::busca(){
     } 
 };
 
-void SubnationalPeriodLifeTablesOperacoes::busca(int comeco, int fim){
+void Operacoes::busca(int comeco, int fim){
     ifstream arquivoLeituraBin("SubnationalPeriodLifeTables.bin");
 
     SubnationalPeriodLifeTables registro;
@@ -92,7 +92,7 @@ void SubnationalPeriodLifeTablesOperacoes::busca(int comeco, int fim){
     }
 };
 
-void SubnationalPeriodLifeTablesOperacoes::trocaPosicao(int primeiraPosicao, int segundaPosicao){
+void Operacoes::trocaPosicao(int primeiraPosicao, int segundaPosicao){
     SubnationalPeriodLifeTables registroPrimeiraPosicao;
     SubnationalPeriodLifeTables registroSegundaPosicao;
     fstream arquivoLeituraBin;
@@ -124,7 +124,7 @@ void SubnationalPeriodLifeTablesOperacoes::trocaPosicao(int primeiraPosicao, int
     }
 }
 
-void SubnationalPeriodLifeTablesOperacoes::insereNaPosicao(int posicao) {
+void Operacoes::insereNaPosicao(int posicao) {
     fstream arquivoLeituraBin;
     arquivoLeituraBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out | ios::in);
 
@@ -154,7 +154,7 @@ void SubnationalPeriodLifeTablesOperacoes::insereNaPosicao(int posicao) {
     arquivoLeituraBin.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
 }
 
-void SubnationalPeriodLifeTablesOperacoes::alterarRegistroPosicao(int posicao){
+void Operacoes::alterarRegistroPosicao(int posicao){
     fstream arquivoLeituraBin;
     arquivoLeituraBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out | ios::in);
     if (!arquivoLeituraBin)
@@ -168,7 +168,7 @@ void SubnationalPeriodLifeTablesOperacoes::alterarRegistroPosicao(int posicao){
     arquivoLeituraBin.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
 }
 
-SubnationalPeriodLifeTables SubnationalPeriodLifeTablesOperacoes::novoDado(int posicao){
+SubnationalPeriodLifeTables Operacoes::novoDado(int posicao){
     SubnationalPeriodLifeTables registro;
     string garbage;
 
@@ -199,7 +199,7 @@ SubnationalPeriodLifeTables SubnationalPeriodLifeTablesOperacoes::novoDado(int p
     return registro;
 }
 
-void SubnationalPeriodLifeTablesOperacoes::transformaEmTxt() {
+void Operacoes::transformaEmTxt() {
     ifstream arquivoLeituraBin("SubnationalPeriodLifeTables.bin");
     if(!arquivoLeituraBin) {
         cout << "Não foi possível abrir o arquivo" << endl;
@@ -259,7 +259,7 @@ void retornarOuSair(){
 int main()
 {
     char opcao;
-    SubnationalPeriodLifeTablesOperacoes operacoes;
+    Operacoes operacoes;
 
     do {
         opcao = menuPrincipal();
