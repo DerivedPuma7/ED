@@ -1,0 +1,14 @@
+# ignore tudo
+*
+# exclua os subdiretórios
+!/**/
+# exclua os arquivos com extensão
+!*.*
+
+.vscode
+*.bin
+*.h
+*.csv
+*.txt
+
+teste.cpp
