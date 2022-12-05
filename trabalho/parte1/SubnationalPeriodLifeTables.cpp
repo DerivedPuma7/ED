@@ -28,6 +28,7 @@ class SubnationalPeriodLifeTablesOperacoes {
         void alterarRegistroPosicao(int posicao);
         void insereNaPosicao(int posicao);
         void transformaEmTxt();
+        SubnationalPeriodLifeTables novoDado(int posicao);
 };
 
 void SubnationalPeriodLifeTablesOperacoes::print(SubnationalPeriodLifeTables registro){
@@ -128,22 +129,25 @@ void SubnationalPeriodLifeTablesOperacoes::insereNaPosicao(int posicao) {
         cout << "Não foi possível abrir o arquivo" << endl;
     }
 
-    SubnationalPeriodLifeTables registroDeInteresse;
+    SubnationalPeriodLifeTables registro = this->novoDado(posicao);
     SubnationalPeriodLifeTables aux1;
 
     arquivoLeituraBin.seekg(0, arquivoLeituraBin.end);
     int quantidadeRegistros = arquivoLeituraBin.tellg()/sizeof(SubnationalPeriodLifeTables);
 
-    while(quantidadeRegistros >= posicao){
+    while((quantidadeRegistros) >= (posicao)){
 
-        arquivoLeituraBin.seekg(quantidadeRegistros * sizeof(SubnationalPeriodLifeTables));
+        arquivoLeituraBin.seekg((quantidadeRegistros - 1) * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.read((char *)&aux1, sizeof(SubnationalPeriodLifeTables));
-
-        arquivoLeituraBin.seekg(quantidadeRegistros + 1 * sizeof(SubnationalPeriodLifeTables));
+        aux1.id = quantidadeRegistros + 1;
+        arquivoLeituraBin.seekg((quantidadeRegistros) * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.write((char *)&aux1, sizeof(SubnationalPeriodLifeTables));
 
         quantidadeRegistros--;
     }
+
+    arquivoLeituraBin.seekg(posicao * sizeof(SubnationalPeriodLifeTables));
+    arquivoLeituraBin.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
 }
 
 void SubnationalPeriodLifeTablesOperacoes::alterarRegistroPosicao(int posicao){
@@ -154,26 +158,41 @@ void SubnationalPeriodLifeTablesOperacoes::alterarRegistroPosicao(int posicao){
         cout << "Não foi possível abrir o arquivo" << endl;
     }
 
+    SubnationalPeriodLifeTables registro = this->novoDado(posicao);
+
+    arquivoLeituraBin.seekg(posicao * sizeof(SubnationalPeriodLifeTables));
+    arquivoLeituraBin.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
+}
+
+SubnationalPeriodLifeTables SubnationalPeriodLifeTablesOperacoes::novoDado(int posicao){
     SubnationalPeriodLifeTables registro;
     string garbage;
 
+    registro.id = posicao;
     cout << "Measure: ";
     cin >> registro.measure;
     cout << "Quantile: ";
     cin >> registro.quantile;
     cout << "Area: ";
-    cin >> registro.sex;
+    cin.ignore();
+	getline(cin, garbage);
+    strcpy(registro.area, garbage.c_str());
     cout << "Sex: ";
     cin >> registro.sex;
     cout << "Age: ";
-    cin >> registro.age;
+    cin.ignore();
+	getline(cin, garbage);
+    strcpy(registro.age, garbage.c_str());
     cout << "Geography: ";
-    cin >> registro.geography;
+	getline(cin, garbage);
+    strcpy(registro.geography, garbage.c_str());
     cout << "Ethnic: ";
-    cin >> registro.ethnic;
+	getline(cin, garbage);
+    strcpy(registro.ethnic, garbage.c_str());
+    cout << "Value: ";
+    cin >> registro.value;
 
-    arquivoLeituraBin.seekg(posicao * sizeof(SubnationalPeriodLifeTables));
-    arquivoLeituraBin.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
+    return registro;
 }
 
 void SubnationalPeriodLifeTablesOperacoes::transformaEmTxt() {
