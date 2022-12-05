@@ -291,6 +291,7 @@ int main()
                 cin >> segunda;
                 operacoes.trocaPosicao(primeira, segunda);
                 retornarOuSair();
+                break;
             case 'd':
                 system("clear||cls");
                 cout << "================ Mudar Registro de uma Posição ================" << endl;
@@ -307,11 +308,13 @@ int main()
                 cin >> posicao;
                 operacoes.insereNaPosicao(posicao);
                 retornarOuSair();
+                break;
             case 'f':
                 system("clear||cls");
                 cout << "================ Gerar arquivo .txt ================" << endl;
                 operacoes.transformaEmTxt();
                 retornarOuSair();
+                break;
             default:
                 break;
         }
