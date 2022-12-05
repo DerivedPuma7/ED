@@ -112,6 +112,10 @@ void SubnationalPeriodLifeTablesOperacoes::trocaPosicao(int primeiraPosicao, int
         arquivoLeituraBin.seekg(segundaPosicao * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.read((char *)&registroSegundaPosicao, sizeof(SubnationalPeriodLifeTables));
 
+        int posicaoAux = registroPrimeiraPosicao.id;
+        registroPrimeiraPosicao.id = registroSegundaPosicao.id;
+        registroSegundaPosicao.id = posicaoAux;
+
         arquivoLeituraBin.seekg(primeiraPosicao * sizeof(SubnationalPeriodLifeTables));
         arquivoLeituraBin.write((char *)&registroSegundaPosicao, sizeof(SubnationalPeriodLifeTables));
 
