@@ -1,0 +1,57 @@
+{
+    "o que é": "é uma variável homogênea: que armazena dados do mesmo tipo",
+    "implementação": "feita por meio de ponteiros, onde cada elemento aponta para o próximo,e o próximo para null, indicando o fim",
+    "vantagem": "redimensionamento fácil, basta trabalhar com os ponteiros",
+    "desvantagem": "acesso difícil, para acessar o último elemento, tem que percorrer todos os anteriores antes. Não é um acesso rápido como em vetores.",
+    "acesso a elementos intermediários": "não é considerado quebra de estrutura",
+    "tipos especiais": {
+        "pilha e fila": "são um tipo de lista, com propriedades especiais na inserção, remoção, etc;"
+    },
+    "características": {
+        "lista": {
+            "ponteiro": {
+                "primeiro": "ponteiro para o primeiro elemento",
+                "ultimo": "ponteiro para o último elemento (opcional, mas importante)"
+            },
+            "atributo": {
+                "tamanho": "atributo indicando a quantidade de itens da lista"
+            },
+            "noh": {
+                "ponteiro": {
+                    "proximo": {
+                        "o que é": "apontador para o próximo elemento da lista",
+                        "proximo do ultimo": "NULL"
+                    }
+                },
+                "dado": "dado salvo no noh"
+            }
+        },
+        "lista duplamente encadeada": {
+            "noh": {
+                "ponteiro": {
+                    "proximo": {
+                        "o que é": "apontador para o próximo elemento da lista",
+                        "proximo do ultimo": "NULL"
+                    },
+                    "anterior": {
+                        "o que é": "apontador para o elemento anterior",
+                        "anterior do primeiro": "NULL"
+                    }
+                },
+                "dado": "dado salvo no noh"
+            }
+        },
+        "lista estaticamente encadeada": {
+            "o que é": "é a implementação de listas realizadas em vetores, com a posição do proximo e do anterior salvas"
+        }
+    },
+    "metodos": [
+        "constução",
+        "destruição",
+        "caminhamento/percorrimento",
+        "busca",
+        "acessa posição",
+        "inserção: inserção no início, inserção no fim, inserção em uma determinada posição",
+        "remoção: remoção no início ou fim, remoção de um noh com determinado valor(necessário encontrá-lo antes), remoção de um noh em uma posição específica"
+    ]
+}

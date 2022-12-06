@@ -9,6 +9,5 @@
 *.bin
 *.h
 *.csv
-*.txt
 
 teste.cpp
