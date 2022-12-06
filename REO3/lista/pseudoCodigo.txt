@@ -1,0 +1,223 @@
+_________________________ CRIAÇÃO _________________________
+criarLista() {
+    this->inicio = NULL;
+    this->fim = NULL;
+
+    this->tamanho = 0;
+}
+
+
+_________________________ INSERÇÃO _________________________
+inserirEmListaVazia(valor) {
+    novoNoh = criarNoh(valor);
+
+    this->inicio = novoNoh;
+    this->fim = novoNoh;
+
+    this->tamanho = 1;
+}
+
+inserirNoInicioDaLista(valor) {
+    se(this->vazia()) {
+        this->inserirEmListaVazia(valor);
+    }
+    senão {
+        novoNoh = criarNoh(valor);
+        novoNoh.proximo = this->inicio;
+        this->inicio = novoNoh;
+    }
+
+    this->tamanho++;
+}
+
+// ponteiro do ultimo é importante aqui
+inserirNoFimDaLista(valor) {
+    se(this->vazia()) {
+        this->inserirEmListaVazia(valor);
+    }
+    senão {
+        novoNoh = criarNoh(valor);
+        this->fim.proximo = novoNoh;
+        this->fim = novoNoh;
+    }
+
+    this->tamanho++;
+}
+
+inserirEmPosicaoEspecifica(valor, posicao) {
+    se(this->vazia()) {
+        this->inserirEmListaVazia(valor);
+    }
+    senão se(posicao == INICIO) {
+        this->inserirNoInicioDaLista(valor);
+    }
+    senão se(posicao == FIM) {
+        this->inserirNoFimDaLista(valor);
+    }
+
+    senão {
+        novoNoh = criarNoh(valor);
+        
+        aux = this->inicio; // noh auxiliar para percorrer a lista
+        posAux = 0; // posição do noh auxiliar
+
+        //procura o nó anterior ao da posição
+        enquanto( posAux < (posicao - 1) ) {
+            aux = aux.proximo;
+            posAux++;
+        }
+
+        novoNoh.proximo = aux.proximo;
+        aux.proximo = novo;
+
+        this->tamanho++;
+    }
+}
+
+_________________________ PERCORRIMENTO _________________________
+// iterativo
+percorrerLista() {
+    auxiliar = this->inicio;
+
+    enquanto(auxiliar != NULL) {
+        efetuaAcao(auxiliar);
+        auxiliar = auxiliar.proximo;
+    }
+}
+
+// recursivo
+percorrerLista() {
+    percorrerListaAux(this->inicio);
+}
+percorrerListaAux(umNoh) {
+    se(umNoh != NULL) {
+        efetuaAcao(umNoh);
+        percorrerListaAux(umNoh.proximo);
+    }
+}
+
+_________________________ BUSCA _________________________
+buscarNaLista(valor) {
+    auxiliar = this->inicio;
+
+    enquanto(auxiliar != NULL) {
+        se(auxiliar.contem(valor)) {
+            efetuaAcao(auxiliar);
+            auxiliar = NULL;
+        }
+        senao {
+            auxiliar = auxiliar.proximo;
+        }
+    }
+}
+
+_________________________ ACESSO À POSIÇÃO _________________________
+// exemplo 1
+acessarPosicao(posicao) {
+    se((posicao < 0) OU (posicao >= this->tamanho)) Erro();
+
+    auxiliar = this->inicio;
+    localizacao = 0;
+
+    enquanto(posicao > localizacao) {
+        auxiliar = auxiliar.proximo;
+        localizacao++;
+    }
+
+    efetuaAcao(auxiliar);
+}
+
+// exemplo 2 - iterador
+acessarPosicao(posicao) {
+    se((posicao < 0) OU (posicao >= this->tamanho)) Erro();
+
+    auxiliar = this->inicio;
+    localizacao = 0;
+
+    enquanto(posicao > localizacao) {
+        auxiliar = auxiliar.proximo;
+        localizacao++;
+    }
+
+    retorna Iterador;
+}
+
+_________________________ IMPRESSÃO DE LISTA _________________________
+imprimirLista(lista) {
+    inicio = lista.acessarPosicaoInicial(); // iterador
+    fim = lista.acessarPosicaoFinal(); // iterador
+
+    enquanto(inicio != fim) {
+        imprime(inicio.valor);
+        inicio = inicio.proximo;
+    }
+}
+
+_________________________ REMOÇÃO _________________________
+removeNoInicio() {
+    se(this->vazia()) erro();
+
+    aux = this->inicio;
+    dado = aux.valor;
+    inicio = aux.proximo;
+
+    apagar(aux);
+
+    this->tamanho--;
+
+    se(this->vazia()) {
+        this->fim = NULL;
+    }
+
+    efetuaAcao(dado);
+}
+
+removeNoFim() {
+    se(this->vazia()) erro();
+
+    aux = this->inicio;
+    enquanto(aux.proximo != NULL) {
+        aux = proximo;
+    }
+
+    dado = aux.proximo.valor;
+    apagar(aux.proximo);
+
+    tamanho--;
+
+    aux.proximo = NULL;
+    fim = aux;
+
+    se(this->vazia()) {
+        this->inicio = NULL;
+    }
+
+    efetuaAcao(dado);
+}
+
+removeNoEspecifico() {
+    se(this->vazia()) erro();
+
+    auxiliar = this->inicio;
+    enquanto( (auxiliar != NULL) E (auxiliar.dado != valor) ) {
+        anterior = auxiliar;
+        auxiliar = auxiliar.proximo;
+    }
+
+    se(auxiliar != NULL) {
+        se (auxiliar == this->inicio) {
+            removeNoInicio();
+        }
+        senão se (auxiliar == this->fim) {
+            removeNoFim();
+        }
+        senão {
+            anterior.proximo = auxiliar.proximo;
+        }
+    }
+
+    tamanho--;
+    auxiliar.proximo = NULL;
+    apaga(auxiliar);
+    efetuaAcao(dado);
+}
