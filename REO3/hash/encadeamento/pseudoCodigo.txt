@@ -1,0 +1,72 @@
+criarHash(cap) {
+    capacidade = cap;
+    tabela = alocaVetorDeListas(capacidade);
+}
+
+destruirHash() {
+    desalocaVetorDeListas();
+}
+
+insereElemento(valor, chave) {
+    posicao = calculaHash(chave);
+    lista = tabela[posicao]; // objeto devolvido é uma referencia ou ponteiro, não uma cópia
+
+    se(lista.busca(chave) == NAO_ENCONTRADO) {
+        //cria um elemento e o insere no final da lista,
+        lista.insereNoFim(valor, chave);
+    }
+    se não {
+        geraErro("item ja esta na tabela");
+    }
+}
+
+recuperaValor(chave) {
+    posicao = calculaHash(chave);
+    elemento = tabela[posicao].busca(chave);
+
+    se(elemento == NAO_ENCONTRADO) {
+        geraErro("item nao encontrado");
+    }
+    se não {
+        efetuaAcao(elemento.valor); 
+    }
+}
+
+alteraElemento(chave, novoValor) {
+    posicao = calculaHash(chave);
+    elemento = tabela[posicao].busca(chave);
+
+    se(elemento = NAO_ENCONTRADO) {
+        geraErro("item nao encontrado");
+        // caso nao encontrado, será melhor lançar erro ou adicionar como um novo elemento ?
+    }
+    se nao {
+        elemento.valor = novoValor;
+    }
+}
+
+removeElemento(chave) {
+    posicao = calculaHash(chave);
+    elemento = tabela[posicao].busca(chave);
+
+    se(elemento = NAO_ENCONTRADO) {
+        geraErro("...");
+    }
+    se nao {
+        apagar(elemento);
+    }
+}
+
+redimensiona(novaCapacidade) {
+    tabelaAux = alocaVetorDeListas(novaCapacidade);
+
+    para(cada elemento em tabela) {
+        insereElementoNaTabela(elemento, tabelaAux);
+    }
+
+    capacidade = novaCapacidade;
+    apaga(tabela);
+
+    // redireciona a tabela para a com nova capacidade
+    tabela = tabelaAux;
+}

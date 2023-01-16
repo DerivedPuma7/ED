@@ -1,0 +1,58 @@
+{
+    "função de hash": "é um algoritmo que mapeia dados de comprimento variável para dados de comprimento fixo",
+    "inversa": "como varios valores podem ser mapeados em um unico valor hash, essas funções não possuem inversa, ou seja, dado um valor de hash, não é possivel determinar com certeza o valor que o gerou",
+    "checksum": "verificação de integridade de arquivos",
+    "tabelas hash": {
+        "o que é": "armazenar dados e identificar suas posições por meio de uma chave de busca",
+        "funcao hash": "usado hash para encontrar a posição de uma dada chave no vetor de armazenamento",
+        "tempos de busca": {
+            "tabela hash": "O(1) -> constante",
+            "busca sequencial": "O(n)",
+            "busca binária": "O(log n)"
+        }
+    },
+    "operador resto": {
+        "função": "h(k): k mod m",
+        "k": "valor da chave",
+        "m": "capacidade da tabela",
+        "exemplo": {
+            "capacidade tabela": 11,
+            "valores": [14, 26, 38, 17, 30, 45],
+            "h(14)": "14 mod 11 = 3",
+            "ou seja": "14 estará na posição 3",
+            "h(26)": "26 mod 11 = 4",
+            "h(38)": "38 mod 11 = 5",
+            "h(17)": "6",
+            "h(30)": "8",
+            "h(45)": "1",
+            "pensemos": "imagine que tenhamos o valor 56. 56 mod 11 = 1. Temos uma Colisão aqui. Não queremos isso"
+        }
+    },
+    "colisão": {
+        "tratamento": {
+            "encadeamento": {
+                "o que é": "para cada posição no hash, temos uma lista encadeada. vetor de lista encadeada",
+                "exemplo": {
+                    "capacidade tabela": 11,
+                    "dados": [34, 46, 101, 85, 55, 13, 96],
+                    "funcao hash": "h(k) = k mod m",
+                    "hash": [55, 34, [46, 101, 13], null, null, null, null, null, [85, 96], null, null],
+                    "degeneração da tabela hash": "muitas colisões. máximo de 70% de ocupação"
+                }
+            },
+            "endereçamento aberto": {
+                "o que é": "se a posição estiver ocupada, procurar a próxima posição livre",
+                "exemplo": {
+                    "capacidade da tabela": 7,
+                    "dados": [34, 46, 85, 55, 13],
+                    "funcao hash": "h(k) = k mod m",
+                    "hash": [55, 85, 13, null, 46, null, 34]
+                },
+                "remoção": {
+                    "deslocamento de dados": "muito complexa",
+                    "marcar posições": "posições removidas como inválidas, menos complexo"
+                }
+            }
+        }
+    }
+}

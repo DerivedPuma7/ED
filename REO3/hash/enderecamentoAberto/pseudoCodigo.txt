@@ -1,0 +1,75 @@
+criarHash(cap) {
+    capacidade = cap;
+    vetorDeDados = alocaVetorDeDados(capacidade);
+
+    para(todo elemento no vetorDeDados) {
+        elemento = INVALIDO;
+    }
+}
+
+destruirHash() {
+    desalocaVetorDeDados();
+}
+
+buscaChave(chave) {
+    posicao = calculaHash(chave);
+    posFinal = posicao;
+
+    faça {
+        umDado = vetorDeDados[posicao];
+
+        se(umDado == INVALIDO) retorna POSINVALIDA;
+        se(umDado.chave == chave) retorna posicao;
+        posicao = (posicao + 1) % capacidade;
+
+    } enquanto (posicao != posFinal);
+
+    retorna POSINVALIDA;
+}
+
+insereElemento(valor, chave) {
+    se(tamanho == capacidade) {
+        geraErro('tabela cheia');
+    }
+
+    se(busca(chave) != POSINVALIDA) {
+        geraErro('item ja esta na tabela');
+    }
+    posicao = calculaHash(chave);
+
+    enquanto(
+        (vetorDeDados[posicao] != INVALIDO) E
+        (vetorDeDados[posicao] != REMOVIDO)
+    ) {
+        posicao = (posicao + 1) % capacidade;
+    }
+
+    vetorDeDados[posicao].chave = chave;
+    vetorDeDados[posicao].valor = valor;
+
+    tamanho++;
+}
+
+removeElemento(chave) {
+    se(tamanho == 0) {
+        geraErro('remoção em tabela vazia');
+    }
+
+    posicao = buscaChave(chave);
+    se(posicao == POSINVALIDA) {
+        geraErro('chave nao encontrada para remoção');
+    }
+
+    vetorDeDados[posicao] = REMOVIDO;
+    tamanho--;
+}
+
+consulta(chave) {
+    posicao = buscaChave(chave);
+    se(posicao == POSINVALIDA) {
+        geraErro('elemento nao encontrado');
+    }
+
+    dado = vetorDeDados[posicao].valor;
+    efetuaAcao(dado); // possivelmente retorno
+}

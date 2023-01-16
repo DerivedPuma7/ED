@@ -1,0 +1,70 @@
+{
+    "1": {
+        "pergunta": "O que é uma tabela hash? Como é o seu funcionamento?",
+        "resposta": {
+            "1.1":  "estrutura que armazena dados e os identifica por meio de uma chave de busca",
+            "1.2": "as posições dos elementos são dadas por meio de alguma função hash, acesso imediato ao dado"
+        }
+    },
+    "2": {
+        "pergunta": "O que é uma função de espalhamento e suas características? Apresente exemplos.",
+        "resposta": {
+            "2.1":  "função de espalhamento/função hash é uma função que calcula a posição baseada em um algoritmo e uma chave específicos",
+            "2.2": "não possui inversa. baseado em uma hash, não é possível saber qual valor a originou",
+            "exemplos": {
+                "função hash": "h(k): k mod m",
+                "m": 5,
+                "k": [7, 10, 12],
+                "h(k)": [2, 0, 2]
+            }
+        }
+    },
+    "3": {
+        "pergunta": "Compare a estrutura da tabela hash com vetores na questão de armazenamento.",
+        "resposta": {
+            "vetor": "armazenamento sequencial, métodos de busca com complexidade linear O(n)(sequencial) e logaritmica O(log n)(binaria)",
+            "tabela hash": "armazenamento baseado em uma hash, método de busca com complexidade constante O(1)"
+        }
+    },
+    "4": {
+        "pergunta": "O que é colisão? Qual o impacto de uma colisão em uma tabela hash? E possível evitar a colisão em todas as situações? Como resolver o problema da colisão?",
+        "resposta": {
+            "4.1": "fenômeno não desejado. ocorre quando um elemento vai ser inserido em uma posição ja preenchida por outro elemento",
+            "4.2": "",
+            "4.3": "sim. existe o conceito de hash perfeito que garante que não hajam colisões. mas afirmar que funciona em TODAS as situações, acredito que não.",
+            "4.4": "elaborar um bom algoritmo para a função hash (levar em consideração os valores de entrada), evitar que a tabela passe de 70% da capacidade de armazenamento"
+        }
+    },
+    "5": {
+        "pergunta": "Quais as formas para tratar colisão em uma tabela hash? Faça uma análise comparativa entre as duas principais abordagens.",
+        "resposta": {
+            "5.1": "listas encadeadas e endereçamento aberto",
+            "listas encadeadas": "cada posição da tabela é uma lista, e em caso de colisão, basta adicionar o dado ao fim da lista. vetor de lista encadeada",
+            "endereçamento aberto": "se a posição estiver ocupada, procurar a próxima posição livre"
+        }
+    },
+    "6": {
+        "pergunta": "Faça a inserção em uma tabela hash de 10 posições, com tratamento de colisão por encadeamento, dos seguintes elementos: 5, 26, 48, 99, 35, 86, 55, 101. (fhash(x):x mod 10)",
+        "resposta": {
+            "tabela": [5, 101, null, null, null, [35,55], [26, 86], null, 48, 99]
+        }
+    },
+    "7": {
+        "pergunta": "Faça a remoção dos elementos 5 e 86 da tabela hash da questão anterior.",
+        "resposta": {
+            "tabela": [null, 101, null, null, null, [35,55], [26], null, 48, 99]
+        }
+    },
+    "8": {
+        "pergunta": "Faça a inserção em uma tabela hash de 10 posições, com tratamento de colisão por endereçamento aberto, dos seguintes elementos: 5, 26, 48, 99, 35, 86, 55, 101. fhash(x):x mod 10)",
+        "resposta": {
+            "tabela": [5, 55, 101, null, null, 35, 26, 86, 48, 99]
+        }
+    },
+    "9": {
+        "pergunta": "Faça a remoção dos elementos 5 e 86 da tabela hash da questão anterior.",
+        "resposta": {
+            "tabela": [null, 55, 101, null, null, 35, 26, null, 48, 99]
+        }
+    }
+}
