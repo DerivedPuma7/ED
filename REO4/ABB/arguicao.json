@@ -17,21 +17,21 @@
         "resposta": {
             "2.1": "é a ação de percorrer os nohs e fazer determinada ação com os valores. Imprimir, retornar, somar, etc",
             "2.2": "trata (executa ação) a raiz, percore a SE, percorre a SD, repete",
-            "exemplo": "ver imagem percorrimento.png"
+            "exemplo": "ver imagem img/percorrimento.png"
         }
     },
     "3": {
         "pergunta": "O que é o percorrimento em-ordem em uma árvore binária? Apresente um exemplo.",
         "resposta": {
             "3.1": "percore a SE, trata raiz, percorre a SD",
-            "exemplo": "ver imagem percorrimento.png"
+            "exemplo": "ver imagem img/percorrimento.png"
         }
     },
     "4": {
         "pergunta": "O que é o percorrimento pós-ordem em uma árvore binária? Apresente um exemplo.",
         "resposta": {
             "4.1": "percore a SE, percorre a SD, trata raiz",
-            "exemplo": "ver imagem percorrimento.png"
+            "exemplo": "ver imagem img/percorrimento.png"
         }
     },
     "5": {
@@ -39,13 +39,13 @@
         "resposta": {
             "5.1": "uma árvore binária que, dado qualquer noh, elementos maiores estão à direita e elementos menores à esquerda. busca semelhante a uma busca binária. uma árvore com altura h pode ter, no máximo, 2^(h+1) - 1 nós ----> O(2^h)",
             "5.2": "balanceada significa nohs folha com no máximo 1 nível de diferença",
-            "exemplo": "ver imagem percorrimento.png"
+            "exemplo": "ver imagem img/percorrimento.png"
         }
     },
     "6": {
         "pergunta": "Mostre como é feita a inserção em uma ABB dos elementos, na sequência, 35, 18, 60, 12, 41, 29, 1, 88.",
         "resposta": {
-            "5.1": "ver imagem questao_6_arguicao.png"
+            "5.1": "ver imagem img/questao_6_arguicao.png"
         }
     },
     "7": {
@@ -57,7 +57,7 @@
                 "problema": "noh com dois filhos",
                 "alternativa 1": "trocar pelo antecessor: maior elemento da SE",
                 "alternativa 2": "trocar pelo sucessor: menor elemento da SD",
-                "resultado": "ver imagem antecessor_questao_7_arguicao.png"
+                "resultado": "ver imagem img/antecessor_questao_7_arguicao.png"
             }
         }
     },
