@@ -1,0 +1,178 @@
+criarABB() {
+    raiz = null;
+}
+
+destruirABB() {
+    // ou cada noh chama o destrutor de seus filhos, ou
+    // percorre-se a árvore pós-ordem destruindo os filhos antes do noh pai
+    destruirNohRecursivamente(raiz);
+}
+
+--------------------------------------- INSERÇÃO RECURSIVA ---------------------------------------
+
+inserirRecursivamente(umValor) {
+    raiz = inserirRecAux(raiz, umValor);
+}
+
+inserirRecAux(umNoh, umValor) {
+    se (umNoh == null) {
+        novo = criarNoh(umValor);
+        return novo;
+    }
+    se não {
+        se(umValor < umNoh.valor) {
+            umNoh.esquerdo = inserirRecAux(umNoh.esquerdo, umValor);
+            umNoh.esquerdo.pai = umNoh; // se for duplamente encadeado, acerta o noh pai
+        }
+        se não {
+            umNoh.direito = inserirRecAux(umNoh.direito, umValor);
+            umNoh.direito.pai = umNoh; // se for duplamente encadeado, acerta o noh pai
+        }
+    }
+
+    return umNoh;
+}
+
+--------------------------------------- INSERÇÃO ITERATIVA ---------------------------------------
+
+inserirIterativamente(umValor) {
+    novo = criarNoh(umValor);
+
+    se(raiz == null) {
+        raiz = novo;
+    }
+    se não {
+        atual = raiz;
+    }
+
+    enquanto(atual != null) {
+        anterior = atual;
+
+        // use >= para permitir valores repetidos
+        se(atual.valor > umValor) {
+            atual = atual.esquedo; // segue pelo filho esquerdo
+        }
+        se não {
+            atual = atual.direito; // segue pelo filho direito
+        }
+    }
+
+    // encontrou o ponto, agora é só inserir
+    novo.pai = anterior;
+    se(anterior.valor > novo.valor) {
+        anterior.esquerdo = novo;
+    }
+    se nao {
+        anterior.direito = novo;
+    }
+}
+
+--------------------------------------- MINIMO ---------------------------------------
+minimo() {
+    se(raiz = null) {
+        geraErro("arvore vazia");
+    }
+    se não {
+        nohMinimo = minimoAux(raiz);
+        return nohMinimo.valor;
+    }
+}
+
+minimoAux(raizSubArvore) {
+    enquanto(raizSubArvore.esquedo != null) {
+        raizSubArvore = raizSubArvore.esquerdo;
+    }
+
+    return raizSubArvore;
+}
+
+--------------------------------------- MÁXIMO ---------------------------------------
+maximo() {
+    se(raiz = null) {
+        geraErro("arvore vazia");
+    }
+    se não {
+        nohMaximo = maximoAux(raiz);
+        return nohMaximo.valor;
+    }
+}
+
+maximoAux(raizSubArvore) {
+    enquanto(raizSubArvore.direito != null) {
+        raizSubArvore = raizSubArvore.direito;
+    }
+
+    return raizSubArvore;
+}
+
+--------------------------------------- BUSCA ---------------------------------------
+busca(umValor) {
+    nohComValor = buscaAux(umValor);
+
+    se(nohComValor == null) {
+        informa("noh nao encontrado");
+    }
+    se não {
+        // efetua ação desejada
+        efetuaAcao(nohComValor);
+    }
+}
+
+buscaAux(umValor) {
+    // método retorna um noh, por isso é auxiliar(privado)
+    atual = raiz;
+    enquanto(atual != null) {
+        se(atual.valor == umValor) {
+            return atual;
+        }
+        se não se(atual.valor > umValor) {
+            atual = atual.esquedo;
+        }
+        se não {
+            atual = atual.direito;
+        }
+    }
+
+    return atual; // retorna null quando nao encontrado
+}
+
+--------------------------------------- PERCORRIMENTO ---------------------------------------
+------------------- EM ORDEM -------------------
+percorreEmOrdem() {
+    percorreEmOrdemAux(raiz);
+}
+
+percorreEmOrdemAux(umNoh) {
+    se(umNoh != null) {
+        percorreEmOrdemAux(umNoh.esquerdo);
+        efetuaAcao(umNoh);
+        percorreEmOrdemAux(umNoh.direito);
+    }
+}
+
+------------------- PRE ORDEM -------------------
+percorrePreOrdem() {
+    percorrePreOrdemAux(raiz);
+}
+
+percorrePreOrdemAux(umNoh) {
+    se(umNoh != null) {
+        efetuaAcao(umNoh);
+        percorrePreOrdemAux(umNoh.esquerdo);
+        percorrePreOrdemAux(umNoh.direito);
+    }
+}
+
+------------------- POS ORDEM -------------------
+percorrePosOrdem() {
+    percorrePosOrdemAux(raiz);
+}
+
+// usado no destrutor
+percorrePosOrdemAux(umNoh) {
+    se(umNoh != null) {
+        percorrePosOrdemAux(umNoh.esquerdo);
+        percorrePosOrdemAux(umNoh.direito);
+        efetuaAcao(umNoh);
+    }
+}
