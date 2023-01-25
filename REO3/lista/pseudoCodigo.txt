@@ -177,7 +177,7 @@ removeNoFim() {
 
     aux = this->inicio;
     enquanto(aux.proximo != NULL) {
-        aux = proximo;
+        aux = aux.proximo;
     }
 
     dado = aux.proximo.valor;
