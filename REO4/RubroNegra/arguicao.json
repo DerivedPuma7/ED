@@ -1,0 +1,35 @@
+{
+    "consideracoes": {
+        "cor": "enquanto a árvore AVL usa um sistema de alturas, a rubro negra usa um sistema de cores"
+    },
+    "1": {
+        "pergunta": "Quais as propriedades básicas de uma árvore Rubro-Negra?",
+        "resposta": {
+            "1.1": {
+                "nohs": [
+                    "todo noh da árvore possui um atributo de cor, que pode ser vermelho ou preto",
+                    "a raiz da árvore é sempre preta",
+                    "todo noh folha é preto",
+                    "se um noh é vermelho, entrão seus filhos são pretos (não existem nohs vermelhos consecutivos)",
+                    "para cada noh, TODOS os caminhos desse noh para os nohs filhas descendentes contém o mesmo número de nós pretos"
+                ],
+                "geral": [
+                    "permite rebalanceamento local: apenas a parte afetada pela inserção ou remoção é rebalanceada",
+                    "uso de rotações e ajuste de cores na etapa do rebalanceamento",
+                    "custo das operações de inserção, remoção, busca: O(log N)"
+                ]
+            }
+        }
+    },
+    "12": {
+        "pergunta": "Faça um comparativo entre AVL e RB",
+        "resposta": {
+            "complexidade": [
+                "na teoria possuem a mesma complexidade (inserção, remoção, busca)",
+                "na prática, AVL é mais rápida na operação de busca, e mais lenta nas operações de inserção e remoção"
+            ],
+            "balanceamento": "AVL é mais balanceada do que a RN, o que aceleta a busca",
+            "insercao/remocao": "no pior caso, uma inserção ou remoção pode exigir O(log N) rotações na árvore AVL, mas apenas 3 rotações na RN"
+        }
+    }
+}
