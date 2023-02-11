@@ -1,3 +1,4 @@
+#include "subnationalPeriodLifeTablesStruct.h"
 #include <iostream>
 #include <cstring>
 #include <fstream>
@@ -5,19 +6,6 @@
 #include <string>
 
 using namespace std;
-
-struct SubnationalPeriodLifeTables
-{
-    int id;
-    char measure[256];
-    float quantile;
-    char area[256];
-    char sex[255];
-    char age[255];
-    char geography[255];
-    char ethnic[255];
-    float value;
-};
 
 class Operacoes {
     public:
