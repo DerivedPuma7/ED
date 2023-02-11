@@ -83,8 +83,8 @@ bool IntercalaBloco(ifstream auxE[2], ofstream auxS[2], int passo, int saida) {
 }
 
 void MergeExterno() {
-    ifstream arqEntrada("captura_pacotes.bin", ios::binary);
-    ofstream arqSaida("saida_ordenada.bin", ios::binary);
+    ifstream arqEntrada("SubnationalPeriodLifeTables.bin", ios::binary);
+    ofstream arqSaida("SubnationalPeriodLifeTablesOrdenado.bin", ios::binary);
     ofstream arqB1("arqB1.dat", ios::binary);
     ofstream arqB2("arqB2.dat", ios::binary);
 
@@ -95,20 +95,22 @@ void MergeExterno() {
 
     Dado umDado;
 
-    cout << "Calculando tamanho do arquivo..." << endl
-         << endl;
+    cout << "Calculando tamanho do arquivo..." << endl << endl;
+
     arqEntrada.seekg(0, ios::end);
+
     unsigned long int tamanho = arqEntrada.tellg();
     cout << "Tamanho do arquivo: " << tamanho << endl;
+    
     unsigned long int numRegistros = tamanho / sizeof(umDado);
-    cout << "Qtd de registros: " << numRegistros << endl
-         << endl;
-    unsigned long metade = (numRegistros / 2.0) + 0.5;
+    cout << "Qtd de registros: " << numRegistros << endl << endl;
+    
+    float fatorCorrecao = 0.5;
+    unsigned long metade = (numRegistros / 2.0) + fatorCorrecao;
 
     arqEntrada.seekg(0, ios::beg);
 
-    cout << "Realizando a ordenação... " << endl
-         << endl;
+    cout << "Realizando a ordenação... " << endl << endl;
 
     for (long int i = 0; i < metade; i++) {
         //cout << "alo";
