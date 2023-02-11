@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <cstring>
+#include <vector>
 
 using namespace std;
 
@@ -39,20 +41,20 @@ bool IntercalaBloco(ifstream auxE[2], ofstream auxS[2], int passo, int saida) {
         if (valido[0] and valido[1]) { // os dois dados sao validos
             intercalou = true;
             // chave primaria e "Length"
-            if (dados[0].area < dados[1].area) {
+            if (strcmp(dados[0].area, dados[1].area) < 0) {
                 // chave primaria de posicao 0 e maior
                 // grava no arquivo de saida
                 auxS[saida].write((const char *)(&dados[0]), sizeof(Dado));
                 valido[0] = false;
                 pos[0]++;
-            } else if (dados[0].area > dados[1].area) {
+            } else if (strcmp(dados[0].area, dados[1].area) > 0) {
                 // chave primaria de posicao 1 e maior
                 // grava no arquivo de saida
                 auxS[saida].write((const char *)(&dados[1]), sizeof(Dado));
                 valido[1] = false;
                 pos[1]++;
             } else { // chaves primarias iguais, compara chave secundaria "Time"
-                if (dados[0].id <= dados[1].id) {
+                if (dados[0].value <= dados[1].value) {
                     // chave secundaria de posicao 0 e maior
                     // grava no arquivo de saida
                     auxS[saida].write((const char *)(&dados[0]), sizeof(Dado));
