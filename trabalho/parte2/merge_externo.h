@@ -1,4 +1,4 @@
-#include "dado.h"
+#include "subnationalPeriodLifeTablesStruct.h"
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
@@ -6,7 +6,7 @@
 
 using namespace std;
 
-typedef struct Dados Dado;
+typedef struct SubnationalPeriodLifeTables Dado;
 
 bool IntercalaBloco(ifstream auxE[2], ofstream auxS[2], int passo, int saida) {
     string linha;
@@ -39,13 +39,13 @@ bool IntercalaBloco(ifstream auxE[2], ofstream auxS[2], int passo, int saida) {
         if (valido[0] and valido[1]) { // os dois dados sao validos
             intercalou = true;
             // chave primaria e "Length"
-            if (dados[0].length < dados[1].length) {
+            if (dados[0].area < dados[1].area) {
                 // chave primaria de posicao 0 e maior
                 // grava no arquivo de saida
                 auxS[saida].write((const char *)(&dados[0]), sizeof(Dado));
                 valido[0] = false;
                 pos[0]++;
-            } else if (dados[0].length > dados[1].length) {
+            } else if (dados[0].area > dados[1].area) {
                 // chave primaria de posicao 1 e maior
                 // grava no arquivo de saida
                 auxS[saida].write((const char *)(&dados[1]), sizeof(Dado));
