@@ -1,20 +1,3 @@
-/*Identificação do grupo:
-alunos = {
-    1:{
-        Nome: Gustavo Ribeiro de Figueiredo
-        Turma: 14A
-    },
-    2:{
-        Nome: Cesar Augusto Pires
-        Turma: 14A
-    },
-    3:{
-        Nome: Caio César da Rocha
-        Turma: 14C
-    }
-}
-*/
-
 #include "subnationalPeriodLifeTablesStruct.h"
 #include <iostream>
 #include <cstring>
@@ -59,8 +42,7 @@ float LinhaCsv::tratarPorcentagem(string atributoLinha) {
     return atributoRetorno;
 }
 
-bool converterCSV()
-{
+void converterCSV() {
     ifstream arquivoLeituraCsv("SubnationalPeriodLifeTables.csv");
     
     ofstream arquivoEscritaBin;
@@ -69,16 +51,14 @@ bool converterCSV()
     SubnationalPeriodLifeTables registro;
     LinhaCsv linhaCsv;
 
-    if (!arquivoLeituraCsv)
-    {
-        cout << "Não foi possível ler o arquivo" << endl;
-        return false;
+    if (!arquivoLeituraCsv) {
+        cerr << "Não foi possível ler o arquivo" << endl;
+        exit(EXIT_FAILURE);
     }
 
     getline(arquivoLeituraCsv, linhaCsv.restanteLinha);
     int contador = 1;
-    while (getline(arquivoLeituraCsv, linhaCsv.restanteLinha))
-    {
+    while (getline(arquivoLeituraCsv, linhaCsv.restanteLinha)) {
         registro.id = contador;
 
         linhaCsv.tratarLinha(linhaCsv.restanteLinha);
@@ -105,7 +85,6 @@ bool converterCSV()
         linhaCsv.tratarLinha(linhaCsv.restanteLinha);
         registro.value = stof(linhaCsv.atributoLinha);
 
-
         arquivoEscritaBin.write((const char *)(&registro), sizeof(SubnationalPeriodLifeTables));
         cout << '.';
         contador++;
@@ -116,5 +95,4 @@ bool converterCSV()
     arquivoEscritaBin.close();
     arquivoLeituraCsv.close();
 
-    return true;
 }

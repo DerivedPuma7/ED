@@ -32,7 +32,7 @@ void Operacoes::print(SubnationalPeriodLifeTables registro){
 }
 
 void Operacoes::busca(){
-    ifstream arquivoLeituraBin("SubnationalPeriodLifeTables.bin");
+    ifstream arquivoLeituraBin("SubnationalPeriodLifeTablesOrdenado.bin");
 
     SubnationalPeriodLifeTables registro;
     arquivoLeituraBin.seekg(0, arquivoLeituraBin.end);
@@ -55,7 +55,7 @@ void Operacoes::busca(){
 };
 
 void Operacoes::busca(int comeco, int fim){
-    ifstream arquivoLeituraBin("SubnationalPeriodLifeTables.bin");
+    ifstream arquivoLeituraBin("SubnationalPeriodLifeTablesOrdenado.bin");
 
     SubnationalPeriodLifeTables registro;
 

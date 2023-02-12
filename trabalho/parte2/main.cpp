@@ -1,13 +1,27 @@
-#include "conversao.h"
-#include "merge_externo.h"
+/*Identificação do grupo:
+alunos = {
+    1:{
+        Nome: Gustavo Ribeiro de Figueiredo
+        Turma: 14A
+    },
+    2:{
+        Nome: Cesar Augusto Pires
+        Turma: 14A
+    }
+}
+*/
+#include "conversor.h"
+#include "ordenador.h"
 #include <iostream>
 
-int main() {
-    // std::cout << "Convertendo arquivo CSV em binário...\n\n";
-    // converterCSV();
+using namespace std;
 
-    cout << "Ordenando arquivo binário...\n\n";
-    MergeExterno();
+int main() {
+    cout << "Realizando conversão do arquivo CSV em binário\n\n";
+    converterCSV();
+
+    cout << "Realizando ordenação do arquivo\n\n";
+    MergeSortExterno();
 
     return 0;
 }
