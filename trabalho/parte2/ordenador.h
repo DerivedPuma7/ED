@@ -13,13 +13,12 @@ bool intercalaBloco(ifstream auxEntrada[2], ofstream auxSaida[2], int passo, int
     bool valido[2] = {false, false};
     int pos[2] = {0, 0};
 
-    SubnationalPeriodLifeTables dados[2];
+    SubnationalPeriodLifeTables registros[2];
 
     while ((pos[0] + pos[1]) < 2 * passo) {
 
         if ((pos[0] < passo) && (!valido[0])) {
-            if (auxEntrada[0].read((char *)&dados[0], sizeof(SubnationalPeriodLifeTables))) {
-
+            if (auxEntrada[0].read((char *)(&registros[0]), sizeof(SubnationalPeriodLifeTables))) {
                 valido[0] = true;
             } else {
                 pos[0] = passo;
@@ -27,52 +26,55 @@ bool intercalaBloco(ifstream auxEntrada[2], ofstream auxSaida[2], int passo, int
         }
 
         if ((pos[1] < passo) && (!valido[1])) {
-            if (auxEntrada[1].read((char *)&dados[1], sizeof(SubnationalPeriodLifeTables))) {
-
+            if (auxEntrada[1].read((char *)(&registros[1]), sizeof(SubnationalPeriodLifeTables))) {
                 valido[1] = true;
             } else {
                 pos[1] = passo;
             }
         }
 
-        if (valido[0] && valido[1]) { // os dois dados sao validos
+        // os dois dados sao válidos
+        if (valido[0] && valido[1]) { 
             intercalou = true;
-            // chave primaria e "Area"
-            if (strcmp(dados[0].area, dados[1].area) < 0) {
-                // chave primaria de posicao 0 e maior
+            // chave primária: "Area"
+            // chave primária de posição 0 é menor
+            if (strcmp(registros[0].area, registros[1].area) < 0) {
                 // grava no arquivo de posicaoSaida
-                auxSaida[posicaoSaida].write((const char *)(&dados[0]), sizeof(SubnationalPeriodLifeTables));
+                auxSaida[posicaoSaida].write((const char *)(&registros[0]), sizeof(SubnationalPeriodLifeTables));
                 valido[0] = false;
                 pos[0]++;
-            } else if (strcmp(dados[0].area, dados[1].area) > 0) {
-                // chave primaria de posicao 1 e maior
+            } 
+            // chave primária de posição 1 é maior
+            else if (strcmp(registros[0].area, registros[1].area) > 0) {
                 // grava no arquivo de posicaoSaida
-                auxSaida[posicaoSaida].write((const char *)(&dados[1]), sizeof(SubnationalPeriodLifeTables));
+                auxSaida[posicaoSaida].write((const char *)(&registros[1]), sizeof(SubnationalPeriodLifeTables));
                 valido[1] = false;
                 pos[1]++;
-            } else { // chaves primarias iguais, compara chave secundaria "Value"
-                if (dados[0].value <= dados[1].value) {
-                    // chave secundaria de posicao 0 e maior
+            } 
+            // chaves primárias iguais, compara chave secundária "Value"
+            else { 
+                if (registros[0].value <= registros[1].value) {
+                    // chave secundária de posição 0 é maior
                     // grava no arquivo de posicaoSaida
-                    auxSaida[posicaoSaida].write((const char *)(&dados[0]), sizeof(SubnationalPeriodLifeTables));
+                    auxSaida[posicaoSaida].write((const char *)(&registros[0]), sizeof(SubnationalPeriodLifeTables));
                     valido[0] = false;
                     pos[0]++;
                 } else {
-                    // chave secundaria de posicao 1 e maior
+                    // chave secundária de posição 1 é maior
                     // grava no arquivo de posicaoSaida
-                    auxSaida[posicaoSaida].write((const char *)(&dados[1]), sizeof(SubnationalPeriodLifeTables));
+                    auxSaida[posicaoSaida].write((const char *)(&registros[1]), sizeof(SubnationalPeriodLifeTables));
                     valido[1] = false;
                     pos[1]++;
                 }
             }
         } else if (valido[0]) {
             intercalou = true;
-            auxSaida[posicaoSaida].write((const char *)(&dados[0]), sizeof(SubnationalPeriodLifeTables));
+            auxSaida[posicaoSaida].write((const char *)(&registros[0]), sizeof(SubnationalPeriodLifeTables));
             valido[0] = false;
             pos[0]++;
         } else if (valido[1]) {
             intercalou = true;
-            auxSaida[posicaoSaida].write((const char *)(&dados[1]), sizeof(SubnationalPeriodLifeTables));
+            auxSaida[posicaoSaida].write((const char *)(&registros[1]), sizeof(SubnationalPeriodLifeTables));
             valido[1] = false;
             pos[1]++;
         }
@@ -163,7 +165,7 @@ void mergeSortExterno() {
         passo *= 2;
     }
 
-    // Leitura do arquivo auxiliar para o arquivo de posicaoSaida
+    // Leitura do arquivo auxiliar para o arquivo posicaoSaida
 
     ifstream auxEnt;
 
