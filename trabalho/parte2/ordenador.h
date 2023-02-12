@@ -97,14 +97,30 @@ void exibirInformacoesArquivo(long int tamanhoArquivo, long int quantidadeRegist
     cout << "Quantidade de registros: " << quantidadeRegistros << endl << endl;
 }
 
-void verificarAberturaArquivos(ifstream &arquivoLeitura, ofstream &arquivoEscrita, ofstream &arquivoTemporarioB1, ofstream &arquivoTemporarioB2) {
-    if ( !arquivoLeitura || !arquivoEscrita ) {
-        cerr << "Arquivos principais nao abriram!" << endl;
+bool verificarFalhaAberturaArquivo(ifstream &arquivo) {
+    if ( !arquivo ) return true;
+    return false;
+}
+
+bool verificarFalhaAberturaArquivo(ofstream &arquivo) {
+    if ( !arquivo ) return true;
+    return false;
+}
+
+void verificarFalhaAberturaArquivos(ifstream &arquivoLeitura, ofstream &arquivoEscrita, ofstream &arquivoTemporarioB1, ofstream &arquivoTemporarioB2) {
+    if ( 
+        verificarFalhaAberturaArquivo(arquivoLeitura) ||
+        verificarFalhaAberturaArquivo(arquivoEscrita)
+    ) {
+        cerr << "Arquivos principais não abriram corretamente!" << endl;
         exit(EXIT_FAILURE);
     }
 
-    if ( !arquivoTemporarioB1 || !arquivoTemporarioB2 ) {
-        cerr << "Arquivos auxiliares nao abriram!" << endl;
+    if ( 
+        verificarFalhaAberturaArquivo(arquivoTemporarioB1) || 
+        verificarFalhaAberturaArquivo(arquivoTemporarioB2)
+    ) {
+        cerr << "Arquivos auxiliares não abriram corretamente!" << endl;
         exit(EXIT_FAILURE);
     }
 }
@@ -116,12 +132,36 @@ void tratarBlocosArquivo(long int inicio, long int fim, SubnationalPeriodLifeTab
     }
 }
 
+void fecharArquivo(ofstream &arquivo) {
+    arquivo.close();
+}
+
+void fecharArquivo(ifstream &arquivo) {
+    arquivo.close();
+}
+
+void abrirAuxiliarEntrada(ifstream &arquivoAuxiliarEntrada, bool ida, bool ultimo[]) {
+    if (ida) {
+        if (ultimo[0]) {
+            arquivoAuxiliarEntrada.open("arquivoTemporarioB1.dat", ios::binary);
+        } else {
+            arquivoAuxiliarEntrada.open("arquivoTemporarioB2.dat", ios::binary);
+        }
+    } else {
+        if (ultimo[0]) {
+            arquivoAuxiliarEntrada.open("arquivoTemporarioC1.dat", ios::binary);
+        } else {
+            arquivoAuxiliarEntrada.open("arquivoTemporarioC2.dat", ios::binary);
+        }
+    }
+}
+
 void mergeSortExterno() {
     ifstream arquivoLeitura("SubnationalPeriodLifeTables.bin", ios::binary);
     ofstream arquivoEscrita("SubnationalPeriodLifeTablesOrdenado.bin", ios::binary);
     ofstream arquivoTemporarioB1("arquivoTemporarioB1.dat", ios::binary);
     ofstream arquivoTemporarioB2("arquivoTemporarioB2.dat", ios::binary);
-    verificarAberturaArquivos(arquivoLeitura, arquivoEscrita, arquivoTemporarioB1, arquivoTemporarioB2);
+    verificarFalhaAberturaArquivos(arquivoLeitura, arquivoEscrita, arquivoTemporarioB1, arquivoTemporarioB2);
 
     arquivoLeitura.seekg(0, ios::end);
 
@@ -129,21 +169,20 @@ void mergeSortExterno() {
     long int tamanhoArquivo = obterTamanhoArquivo(arquivoLeitura);
     long int quantidadeRegistros = obterQuantidadeRegistrosArquivo(tamanhoArquivo, registro);
     exibirInformacoesArquivo(tamanhoArquivo, quantidadeRegistros);
-    
-    float fatorCorrecao = 0.5;
-    long metade = (quantidadeRegistros / 2.0) + fatorCorrecao;
 
     arquivoLeitura.seekg(0, ios::beg);
 
     cout << "Iniciando a ordenação!!" << endl << endl;
 
+    float fatorCorrecao = 0.5;
+    long metade = (quantidadeRegistros / 2.0) + fatorCorrecao;
     long int inicio = 0;
     tratarBlocosArquivo(inicio, metade, registro, arquivoLeitura, arquivoTemporarioB1);
     tratarBlocosArquivo(metade, quantidadeRegistros, registro, arquivoLeitura, arquivoTemporarioB2);
 
-    arquivoTemporarioB1.close();
-    arquivoTemporarioB2.close();
-    arquivoLeitura.close();
+    fecharArquivo(arquivoTemporarioB1);
+    fecharArquivo(arquivoTemporarioB2);
+    fecharArquivo(arquivoLeitura);
 
     ifstream auxEntrada[2];
     ofstream auxSaida[2];
@@ -165,7 +204,12 @@ void mergeSortExterno() {
             auxSaida[1].open("arquivoTemporarioB2.dat", ios::binary);
         }
 
-        if ((!auxEntrada[0])||(!auxEntrada[1])||(!auxSaida[0])||(!auxSaida[1])) {
+        if (
+            verificarFalhaAberturaArquivo(auxEntrada[0]) ||
+            verificarFalhaAberturaArquivo(auxEntrada[1]) ||
+            verificarFalhaAberturaArquivo(auxSaida[0]) ||
+            verificarFalhaAberturaArquivo(auxSaida[1])
+        ) {
             cerr << "Arquivos auxiliares nao puderam ser abertos!" << endl;
             exit(EXIT_FAILURE);
         }
@@ -175,33 +219,18 @@ void mergeSortExterno() {
             ultimo[1] = intercalaBloco(auxEntrada, auxSaida, passo, 1);
         }
 
-        auxEntrada[0].close();
-        auxEntrada[1].close();
-        auxSaida[0].close();
-        auxSaida[1].close();
+        fecharArquivo(auxEntrada[0]);
+        fecharArquivo(auxEntrada[1]);
+        fecharArquivo(auxSaida[0]);
+        fecharArquivo(auxSaida[1]);
 
         ida = !(ida);
         passo *= 2;
     }
 
-    // Leitura do arquivo auxiliar para o arquivo posicaoSaida
-
     ifstream auxEnt;
-
-    if (ida) {
-        if (ultimo[0]) {
-            auxEnt.open("arquivoTemporarioB1.dat", ios::binary);
-        } else {
-            auxEnt.open("arquivoTemporarioB2.dat", ios::binary);
-        }
-    } else {
-        if (ultimo[0]) {
-            auxEnt.open("arquivoTemporarioC1.dat", ios::binary);
-        } else {
-            auxEnt.open("arquivoTemporarioC2.dat", ios::binary);
-        }
-    }
-    if (!auxEnt) {
+    abrirAuxiliarEntrada(auxEnt, ida, ultimo);
+    if(verificarFalhaAberturaArquivo(auxEnt)) {
         cerr << "Arquivo auxiliar nao pode ser aberto!" << endl;
         exit(EXIT_FAILURE);
     }
@@ -212,7 +241,7 @@ void mergeSortExterno() {
 
     cout << "Ordenação Finalizada!!" << endl;
 
-    auxEnt.close();
+    fecharArquivo(auxEnt);
     remove("arquivoTemporarioB1.dat");
     remove("arquivoTemporarioB2.dat");
     remove("arquivoTemporarioC1.dat");

@@ -7,6 +7,8 @@
 
 using namespace std;
 
+const string NOME_ARQUIVO = "SubnationalPeriodLifeTablesOrdenado.bin";
+
 class Operacoes {
     public:
         void busca();
@@ -32,7 +34,7 @@ void Operacoes::print(SubnationalPeriodLifeTables registro){
 }
 
 void Operacoes::busca(){
-    ifstream arquivoLeituraBin("SubnationalPeriodLifeTablesOrdenado.bin");
+    ifstream arquivoLeituraBin(NOME_ARQUIVO);
 
     SubnationalPeriodLifeTables registro;
     arquivoLeituraBin.seekg(0, arquivoLeituraBin.end);
@@ -55,7 +57,7 @@ void Operacoes::busca(){
 };
 
 void Operacoes::busca(int comeco, int fim){
-    ifstream arquivoLeituraBin("SubnationalPeriodLifeTablesOrdenado.bin");
+    ifstream arquivoLeituraBin(NOME_ARQUIVO);
 
     SubnationalPeriodLifeTables registro;
 
@@ -85,7 +87,7 @@ void Operacoes::trocaPosicao(int primeiraPosicao, int segundaPosicao){
     SubnationalPeriodLifeTables registroSegundaPosicao;
     fstream arquivoLeituraBin;
 
-    arquivoLeituraBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out | ios::in);
+    arquivoLeituraBin.open(NOME_ARQUIVO, ios::binary | ios::out | ios::in);
 
     SubnationalPeriodLifeTables registro;
 
@@ -114,7 +116,7 @@ void Operacoes::trocaPosicao(int primeiraPosicao, int segundaPosicao){
 
 void Operacoes::insereNaPosicao(int posicao) {
     fstream arquivoLeituraBin;
-    arquivoLeituraBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out | ios::in);
+    arquivoLeituraBin.open(NOME_ARQUIVO, ios::binary | ios::out | ios::in);
 
     if (!arquivoLeituraBin)
     {
@@ -144,7 +146,7 @@ void Operacoes::insereNaPosicao(int posicao) {
 
 void Operacoes::alterarRegistroPosicao(int posicao){
     fstream arquivoLeituraBin;
-    arquivoLeituraBin.open("SubnationalPeriodLifeTables.bin", ios::binary | ios::out | ios::in);
+    arquivoLeituraBin.open(NOME_ARQUIVO, ios::binary | ios::out | ios::in);
     if (!arquivoLeituraBin)
     {
         cout << "Não foi possível abrir o arquivo" << endl;
@@ -188,7 +190,7 @@ SubnationalPeriodLifeTables Operacoes::novoDado(int posicao){
 }
 
 void Operacoes::transformaEmTxt() {
-    ifstream arquivoLeituraBin("SubnationalPeriodLifeTables.bin");
+    ifstream arquivoLeituraBin(NOME_ARQUIVO);
     if(!arquivoLeituraBin) {
         cout << "Não foi possível abrir o arquivo" << endl;
     }
