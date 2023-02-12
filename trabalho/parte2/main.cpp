@@ -21,7 +21,7 @@ int main() {
     converterCSV();
 
     cout << "Realizando ordenação do arquivo\n\n";
-    MergeSortExterno();
+    mergeSortExterno();
 
     return 0;
 }
