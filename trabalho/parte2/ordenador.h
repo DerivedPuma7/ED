@@ -83,44 +83,63 @@ bool intercalaBloco(ifstream auxEntrada[2], ofstream auxSaida[2], int passo, int
     return intercalou;
 }
 
+long int obterTamanhoArquivo(ifstream &arquivo) {
+    return arquivo.tellg();
+}
+
+long int obterQuantidadeRegistrosArquivo(long int tamanhoArquivo, SubnationalPeriodLifeTables registro) {
+    return tamanhoArquivo / sizeof(registro);
+}
+
+void exibirInformacoesArquivo(long int tamanhoArquivo, long int quantidadeRegistros) {
+    cout << "Informações sobre o arquivo:" << endl << endl;
+    cout << "Tamanho do arquivo: " << tamanhoArquivo << endl;
+    cout << "Quantidade de registros: " << quantidadeRegistros << endl << endl;
+}
+
+void verificarAberturaArquivos(ifstream &arquivoLeitura, ofstream &arquivoEscrita, ofstream &arquivoTemporarioB1, ofstream &arquivoTemporarioB2) {
+    if ( !arquivoLeitura || !arquivoEscrita ) {
+        cerr << "Arquivos principais nao abriram!" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    if ( !arquivoTemporarioB1 || !arquivoTemporarioB2 ) {
+        cerr << "Arquivos auxiliares nao abriram!" << endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+void tratarBlocosArquivo(long int inicio, long int fim, SubnationalPeriodLifeTables &registro, ifstream &arquivoLeitura, ofstream &arquivoEscrita) {
+    for (inicio; inicio < fim; inicio++) {
+        arquivoLeitura.read((char *)(&registro), sizeof(SubnationalPeriodLifeTables));
+        arquivoEscrita.write((char *)(&registro), sizeof(SubnationalPeriodLifeTables));
+    }
+}
+
 void mergeSortExterno() {
-    SubnationalPeriodLifeTables registro;
     ifstream arquivoLeitura("SubnationalPeriodLifeTables.bin", ios::binary);
     ofstream arquivoEscrita("SubnationalPeriodLifeTablesOrdenado.bin", ios::binary);
     ofstream arquivoTemporarioB1("arquivoTemporarioB1.dat", ios::binary);
     ofstream arquivoTemporarioB2("arquivoTemporarioB2.dat", ios::binary);
-
-    if ((!arquivoTemporarioB1)||(!arquivoTemporarioB2)) {
-        cerr << "Arquivos auxiliares nao abriram!" << endl;
-        exit(EXIT_FAILURE);
-    }
-
-    cout << "Calculando tamanho do arquivo..." << endl << endl;
+    verificarAberturaArquivos(arquivoLeitura, arquivoEscrita, arquivoTemporarioB1, arquivoTemporarioB2);
 
     arquivoLeitura.seekg(0, ios::end);
 
-    unsigned long int tamanhoArquivo = arquivoLeitura.tellg();
-    cout << "Tamanho do arquivo: " << tamanhoArquivo << endl;
-    
-    unsigned long int quantidadeRegistros = tamanhoArquivo / sizeof(registro);
-    cout << "Quantidade de registros: " << quantidadeRegistros << endl << endl;
+    SubnationalPeriodLifeTables registro;
+    long int tamanhoArquivo = obterTamanhoArquivo(arquivoLeitura);
+    long int quantidadeRegistros = obterQuantidadeRegistrosArquivo(tamanhoArquivo, registro);
+    exibirInformacoesArquivo(tamanhoArquivo, quantidadeRegistros);
     
     float fatorCorrecao = 0.5;
-    unsigned long metade = (quantidadeRegistros / 2.0) + fatorCorrecao;
+    long metade = (quantidadeRegistros / 2.0) + fatorCorrecao;
 
     arquivoLeitura.seekg(0, ios::beg);
 
-    cout << "Realizando a ordenação... " << endl << endl;
+    cout << "Iniciando a ordenação!!" << endl << endl;
 
-    for (long int i = 0; i < metade; i++) {
-        arquivoLeitura.read((char *)&registro, sizeof(SubnationalPeriodLifeTables));
-        arquivoTemporarioB1.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
-    }
-
-    for (long int i = metade; i < quantidadeRegistros; i++) {
-        arquivoLeitura.read((char *)&registro, sizeof(SubnationalPeriodLifeTables));
-        arquivoTemporarioB2.write((char *)&registro, sizeof(SubnationalPeriodLifeTables));
-    }
+    long int inicio = 0;
+    tratarBlocosArquivo(inicio, metade, registro, arquivoLeitura, arquivoTemporarioB1);
+    tratarBlocosArquivo(metade, quantidadeRegistros, registro, arquivoLeitura, arquivoTemporarioB2);
 
     arquivoTemporarioB1.close();
     arquivoTemporarioB2.close();
@@ -190,6 +209,8 @@ void mergeSortExterno() {
     while (auxEnt.read((char *)(&registro), sizeof(SubnationalPeriodLifeTables))) {
         arquivoEscrita.write((char *)(&registro), sizeof(SubnationalPeriodLifeTables));
     }
+
+    cout << "Ordenação Finalizada!!" << endl;
 
     auxEnt.close();
     remove("arquivoTemporarioB1.dat");
