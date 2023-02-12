@@ -1,10 +1,8 @@
 #include "subnationalPeriodLifeTablesStruct.h"
-#include <cstdio>
-#include <cstdlib>
+#include "AuxiliarMergeSort.h"
+#include <cstring>
 #include <fstream>
 #include <iostream>
-#include <cstring>
-#include "AuxiliarMergeSort.h"
 
 using namespace std;
 
