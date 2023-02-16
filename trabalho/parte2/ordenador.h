@@ -6,75 +6,89 @@
 
 using namespace std;
 
+// chave primária: "Area"
+int comparaChaves(SubnationalPeriodLifeTables registro1, SubnationalPeriodLifeTables registro2, bool chavePrimaria) {
+    if(chavePrimaria) {
+        return strcmp(registro1.area, registro2.area);
+    }
+
+    if(registro1.value <= registro2.value) {
+        return -1;
+    }
+}
+
 bool intercalaBloco(ifstream auxEntrada[2], ofstream auxSaida[2], int passo, int posicaoSaida) {
     bool intercalou = false;
     bool valido[2] = {false, false};
-    int pos[2] = {0, 0};
+    int arrayPosicao[2] = {0, 0};
 
     SubnationalPeriodLifeTables registros[2];
 
-    while ((pos[0] + pos[1]) < 2 * passo) {
+    while ((arrayPosicao[0] + arrayPosicao[1]) < 2 * passo) {
 
-        if ((pos[0] < passo) && (!valido[0])) {
+        if ((arrayPosicao[0] < passo) && (!valido[0])) {
             if (auxEntrada[0].read((char *)(&registros[0]), sizeof(SubnationalPeriodLifeTables))) {
                 valido[0] = true;
             } else {
-                pos[0] = passo;
+                arrayPosicao[0] = passo;
             }
         }
 
-        if ((pos[1] < passo) && (!valido[1])) {
+        if ((arrayPosicao[1] < passo) && (!valido[1])) {
             if (auxEntrada[1].read((char *)(&registros[1]), sizeof(SubnationalPeriodLifeTables))) {
                 valido[1] = true;
             } else {
-                pos[1] = passo;
+                arrayPosicao[1] = passo;
             }
         }
 
         // os dois dados sao válidos
         if (valido[0] && valido[1]) { 
             intercalou = true;
-            // chave primária: "Area"
+            bool chavePrimaria = true;
+            int comparacao = comparaChaves(registros[0], registros[1], chavePrimaria);
             // chave primária de posição 0 é menor
-            if (strcmp(registros[0].area, registros[1].area) < 0) {
+            if (comparacao < 0) {
                 // grava no arquivo de posicaoSaida
                 auxSaida[posicaoSaida].write((const char *)(&registros[0]), sizeof(SubnationalPeriodLifeTables));
                 valido[0] = false;
-                pos[0]++;
+                arrayPosicao[0]++;
             } 
             // chave primária de posição 1 é maior
-            else if (strcmp(registros[0].area, registros[1].area) > 0) {
+            else if (comparacao > 0) {
                 // grava no arquivo de posicaoSaida
                 auxSaida[posicaoSaida].write((const char *)(&registros[1]), sizeof(SubnationalPeriodLifeTables));
                 valido[1] = false;
-                pos[1]++;
+                arrayPosicao[1]++;
             } 
             // chaves primárias iguais, compara chave secundária "Value"
             else { 
-                if (registros[0].value <= registros[1].value) {
-                    // chave secundária de posição 0 é maior
+                bool chavePrimaria = false;
+                comparacao = comparaChaves(registros[0], registros[1], chavePrimaria);
+                if (comparacao == -1) {
+                    // chave secundária de posição 0 é menor
                     // grava no arquivo de posicaoSaida
                     auxSaida[posicaoSaida].write((const char *)(&registros[0]), sizeof(SubnationalPeriodLifeTables));
                     valido[0] = false;
-                    pos[0]++;
+                    arrayPosicao[0]++;
                 } else {
-                    // chave secundária de posição 1 é maior
+                    // chave secundária de posição 0 é maior
                     // grava no arquivo de posicaoSaida
                     auxSaida[posicaoSaida].write((const char *)(&registros[1]), sizeof(SubnationalPeriodLifeTables));
                     valido[1] = false;
-                    pos[1]++;
+                    arrayPosicao[1]++;
                 }
             }
         } else if (valido[0]) {
             intercalou = true;
             auxSaida[posicaoSaida].write((const char *)(&registros[0]), sizeof(SubnationalPeriodLifeTables));
             valido[0] = false;
-            pos[0]++;
+            arrayPosicao[0]++;
         } else if (valido[1]) {
             intercalou = true;
             auxSaida[posicaoSaida].write((const char *)(&registros[1]), sizeof(SubnationalPeriodLifeTables));
             valido[1] = false;
-            pos[1]++;
+            arrayPosicao[1]++;
         }
     }
 
