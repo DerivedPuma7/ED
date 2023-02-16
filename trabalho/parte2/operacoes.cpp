@@ -7,7 +7,8 @@
 
 using namespace std;
 
-const string NOME_ARQUIVO = "SubnationalPeriodLifeTablesOrdenado.bin";
+const string NOME_ARQUIVO_DESORDENADO = "SubnationalPeriodLifeTables";
+const string NOME_ARQUIVO_ORDENADO = "SubnationalPeriodLifeTablesOrdenado.bin";
 
 class Operacoes {
     public:
@@ -34,7 +35,7 @@ void Operacoes::print(SubnationalPeriodLifeTables registro){
 }
 
 void Operacoes::busca(){
-    ifstream arquivoLeituraBin(NOME_ARQUIVO);
+    ifstream arquivoLeituraBin(NOME_ARQUIVO_ORDENADO);
 
     SubnationalPeriodLifeTables registro;
     arquivoLeituraBin.seekg(0, arquivoLeituraBin.end);
@@ -57,7 +58,7 @@ void Operacoes::busca(){
 };
 
 void Operacoes::busca(int comeco, int fim){
-    ifstream arquivoLeituraBin(NOME_ARQUIVO);
+    ifstream arquivoLeituraBin(NOME_ARQUIVO_ORDENADO);
 
     SubnationalPeriodLifeTables registro;
 
@@ -87,7 +88,7 @@ void Operacoes::trocaPosicao(int primeiraPosicao, int segundaPosicao){
     SubnationalPeriodLifeTables registroSegundaPosicao;
     fstream arquivoLeituraBin;
 
-    arquivoLeituraBin.open(NOME_ARQUIVO, ios::binary | ios::out | ios::in);
+    arquivoLeituraBin.open(NOME_ARQUIVO_ORDENADO, ios::binary | ios::out | ios::in);
 
     SubnationalPeriodLifeTables registro;
 
@@ -116,7 +117,7 @@ void Operacoes::trocaPosicao(int primeiraPosicao, int segundaPosicao){
 
 void Operacoes::insereNaPosicao(int posicao) {
     fstream arquivoLeituraBin;
-    arquivoLeituraBin.open(NOME_ARQUIVO, ios::binary | ios::out | ios::in);
+    arquivoLeituraBin.open(NOME_ARQUIVO_ORDENADO, ios::binary | ios::out | ios::in);
 
     if (!arquivoLeituraBin)
     {
@@ -146,7 +147,7 @@ void Operacoes::insereNaPosicao(int posicao) {
 
 void Operacoes::alterarRegistroPosicao(int posicao){
     fstream arquivoLeituraBin;
-    arquivoLeituraBin.open(NOME_ARQUIVO, ios::binary | ios::out | ios::in);
+    arquivoLeituraBin.open(NOME_ARQUIVO_ORDENADO, ios::binary | ios::out | ios::in);
     if (!arquivoLeituraBin)
     {
         cout << "Não foi possível abrir o arquivo" << endl;
@@ -190,7 +191,7 @@ SubnationalPeriodLifeTables Operacoes::novoDado(int posicao){
 }
 
 void Operacoes::transformaEmTxt() {
-    ifstream arquivoLeituraBin(NOME_ARQUIVO);
+    ifstream arquivoLeituraBin(NOME_ARQUIVO_ORDENADO);
     if(!arquivoLeituraBin) {
         cout << "Não foi possível abrir o arquivo" << endl;
     }

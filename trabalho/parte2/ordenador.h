@@ -1,5 +1,5 @@
 #include "subnationalPeriodLifeTablesStruct.h"
-#include "AuxiliarMergeSort.h"
+#include "auxiliarMergeSort.h"
 #include <cstring>
 #include <fstream>
 #include <iostream>
